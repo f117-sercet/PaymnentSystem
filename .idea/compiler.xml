@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pay-manager" />
+        <module name="pay-z-codegen" />
+        <module name="pay-service" />
+        <module name="pay-core" />
+        <module name="pay-components-oss" />
+        <module name="pay-merchat" />
+        <module name="pay-payment" />
+        <module name="pay-components-mq" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="PaymnentSystem" options="-parameters" />
+      <module name="pay-components" options="-parameters" />
+      <module name="pay-components-mq" options="-parameters" />
+      <module name="pay-components-oss" options="-parameters" />
+      <module name="pay-core" options="-parameters" />
+      <module name="pay-manager" options="-parameters" />
+      <module name="pay-merchat" options="-parameters" />
+      <module name="pay-payment" options="-parameters" />
+      <module name="pay-service" options="-parameters" />
+      <module name="pay-z-codegen" options="-parameters" />
+    </option>
+  </component>
+</project>
