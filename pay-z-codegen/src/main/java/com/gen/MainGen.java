@@ -18,15 +18,15 @@ import java.io.File;
 public class MainGen {
 
 
-        public static final String THIS_MODULE_NAME = "pay-z-codegen"; //当前项目名称
+        public static final String THIS_MODULE_NAME = "pay-core"; //当前项目名称
 
         public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/paydb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8";
         public static final String DB_USERNAME = "root";
         public static final String DB_PASSWORD = "123123";
 
         // 多个用,  拼接
-        //public static final String TABLE_NAMES= "t_sys_entitlement,t_sys_role,t_sys_user,t_sys_user_auth";
-        public static final String TABLE_NAMES= "t_pay_way";
+        public static final String TABLE_NAMES= "t_sys_entitlement,t_sys_role,t_sys_user,t_sys_user_auth";
+        //public static final String TABLE_NAMES= "";
 
         public static void main(String[] args) {
 
@@ -75,7 +75,7 @@ public class MainGen {
 
             // 包配置
             PackageConfig pc = new PackageConfig();
-            pc.setParent("com.payS.pay");  //根目录
+            pc.setParent("com.pay.pay");  //根目录
             pc.setEntity("core.entity");   //实体目录
             pc.setMapper("service.mapper"); //Mapper接口目录
             pc.setXml("service.mapper"); //xml目录
