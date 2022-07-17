@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 系统角色表
+ * 支付方式表
  * </p>
  *
  * @author [mybatis plus generator]
@@ -18,30 +18,25 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_sys_role")
-public class SysRole implements Serializable {
+@TableName("t_pay_way")
+public class PayWay implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     /**
-     * 角色ID, ROLE_开头
+     * 支付方式代码  例如： wxpay_jsapi
      */
-    private String roleId;
+    private String wayCode;
 
     /**
-     * 角色名称
+     * 支付方式名称
      */
-    private String roleName;
+    private String wayName;
 
     /**
-     * 所属系统： MGR-运营平台, MCH-商户中心
+     * 创建时间
      */
-    private String sysType;
-
-    /**
-     * 所属商户ID / 0(平台)
-     */
-    private String belongInfoId;
+    private Date createdAt;
 
     /**
      * 更新时间

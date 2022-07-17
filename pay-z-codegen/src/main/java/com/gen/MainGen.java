@@ -25,7 +25,7 @@ public class MainGen {
         public static final String DB_PASSWORD = "123123";
 
         // 多个用,  拼接
-        public static final String TABLE_NAMES= "t_sys_entitlement,t_sys_role,t_sys_user,t_sys_user_auth";
+        public static final String TABLE_NAMES= "t_sys_config,t_refund_order,t_pay_way,t_pay_order_division_record,t_pay_order,t_pay_interface_define,t_pay_interface_config,t_order_snapshot,t_mch_pay_passage,t_mch_notify_record,t_mch_info,t_mch_division_receiver_group,t_mch_division_receiver,t_mch_app,t_isv_info,t_sys_entitlement,t_sys_log,t_sys_role,t_sys_role_ent_rela,t_sys_user,t_sys_user_auth,t_sys_user_role_rela,t_transfer_order";
         //public static final String TABLE_NAMES= "";
 
         public static void main(String[] args) {

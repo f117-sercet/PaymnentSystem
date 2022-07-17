@@ -1,5 +1,6 @@
 package com.pay.pay.core.entity;
 
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -11,7 +12,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 系统用户表
+ * 商户支付通道表
  * </p>
  *
  * @author [mybatis plus generator]
@@ -20,66 +21,51 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_sys_user")
-public class SysUser implements Serializable {
+@TableName("t_mch_pay_passage")
+public class MchPayPassage implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     /**
-     * 系统用户ID
+     * ID
      */
-    @TableId(value = "sys_user_id", type = IdType.AUTO)
-    private Long sysUserId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     /**
-     * 登录用户名
+     * 商户号
      */
-    private String loginUsername;
+    private String mchNo;
 
     /**
-     * 真实姓名
+     * 应用ID
      */
-    private String realname;
+    private String appId;
 
     /**
-     * 手机号
+     * 支付接口
      */
-    private String telphone;
+    private String ifCode;
 
     /**
-     * 性别 0-未知, 1-男, 2-女
+     * 支付方式
      */
-    private Byte sex;
+    private String wayCode;
 
     /**
-     * 头像地址
+     * 支付方式费率
      */
-    private String avatarUrl;
+    private BigDecimal rate;
 
     /**
-     * 员工编号
+     * 风控数据
      */
-    private String userNo;
+    private String riskConfig;
 
     /**
-     * 是否超管（超管拥有全部权限） 0-否 1-是
-     */
-    private Byte isAdmin;
-
-    /**
-     * 状态 0-停用 1-启用
+     * 状态: 0-停用, 1-启用
      */
     private Byte state;
-
-    /**
-     * 所属系统： MGR-运营平台, MCH-商户中心
-     */
-    private String sysType;
-
-    /**
-     * 所属商户ID / 0(平台)
-     */
-    private String belongInfoId;
 
     /**
      * 创建时间
