@@ -21,4 +21,7 @@
         <result column="updated_at" property="updatedAt" />
     </resultMap>
 
+    <!--更新商户回调结果集状态-->
+    <update id="updateNotifyResult"></update>
+
 </mapper>
