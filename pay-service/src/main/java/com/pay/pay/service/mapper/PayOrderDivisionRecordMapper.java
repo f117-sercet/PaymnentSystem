@@ -13,4 +13,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PayOrderDivisionRecordMapper extends BaseMapper<PayOrderDivisionRecord> {
 
+
+               /*************查询全部分账成功金额************/
+
+              Long sumSuccessDivisionAmount(String payOrderOd);
 }

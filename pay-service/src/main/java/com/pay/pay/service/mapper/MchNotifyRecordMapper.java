@@ -16,4 +16,12 @@ public interface MchNotifyRecordMapper extends BaseMapper<MchNotifyRecord> {
 
     Integer updateNotifyResult(@Param("notifyId") Long notifyId, @Param("state") Byte state, @Param("resResult") String resResult);
 
+
+    /**
+     * 功能描述：更改通知中 & 增加允许重发通知次数
+     * @param notifyId
+     * @return
+     */
+    Integer updateIngAndAddNotifyCountLimit(@Param("notifyId")Long notifyId);
+
 }

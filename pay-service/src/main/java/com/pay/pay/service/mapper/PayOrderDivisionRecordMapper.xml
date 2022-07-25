@@ -32,5 +32,12 @@
         <result column="created_at" property="createdAt" />
         <result column="updated_at" property="updatedAt" />
     </resultMap>
+    <select id="sumSuccessDivisionAmount" resultType="java.lang.Long">
+
+            select ifnull(sum(cal_division_amunt),0) from t_pay_order_division_record
+            where pay_order_id = #{payOrderId} and state = 1
+
+    </select>
+
 
 </mapper>

@@ -22,6 +22,22 @@
     </resultMap>
 
     <!--更新商户回调结果集状态-->
-    <update id="updateNotifyResult"></update>
+    <update id="updateNotifyResult">
+
+     update t_mch_notify_record set res_result = #{resResult},
+                                    notify_count = notify_count+1,
+                                    state = #{state},
+                                    last_notify_time = now()
+    where notifyId = #{notifyId}
+
+    </update>
+
+        <!--更改为通知中 & 增加允许重发次数-->
+    <update id="updateIngAndAddNotifyCountLimit">
+      update t_mch_notify_record
+      set notify_count_limit = notify_count_limit +1,state = 1
+     where notify_id = #{notifyId}
+
+    </update>
 
 </mapper>

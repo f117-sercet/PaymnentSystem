@@ -41,5 +41,9 @@
         <result column="created_at" property="createdAt" />
         <result column="updated_at" property="updatedAt" />
     </resultMap>
+    <update id="updateRefundAmountAndCount"></update>
+    <select id="payCount" resultType="java.util.Map"></select>
+    <select id="payTypeCount" resultType="java.util.Map"></select>
+    <select id="selectOrderCount" resultType="java.util.Map"></select>
 
 </mapper>
