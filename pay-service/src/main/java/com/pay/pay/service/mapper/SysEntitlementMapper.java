@@ -2,6 +2,7 @@ package com.pay.pay.service.mapper;
 
 import com.pay.pay.core.entity.SysEntitlement;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysEntitlementMapper extends BaseMapper<SysEntitlement> {
 
+    Integer userHasLeftMenu(@Param("userId") Long userId, @Param("sysType") String sysType);
 }

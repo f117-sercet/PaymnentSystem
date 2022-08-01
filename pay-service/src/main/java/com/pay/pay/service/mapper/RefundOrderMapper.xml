@@ -31,6 +31,11 @@
         <result column="expired_time" property="expiredTime" />
         <result column="created_at" property="createdAt" />
         <result column="updated_at" property="updatedAt" />
+
     </resultMap>
+    <select id="sumSuccessRefundAmount" resultType="java.lang.Long">
+        select ifnull(sum(refund_amount),0) from t_refund_order
+        where pay_order_id = #{payOrderId} and state = 2
+    </select>
 
 </mapper>

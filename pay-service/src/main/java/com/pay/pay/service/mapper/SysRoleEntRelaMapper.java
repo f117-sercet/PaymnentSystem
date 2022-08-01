@@ -2,6 +2,9 @@ package com.pay.pay.service.mapper;
 
 import com.pay.pay.core.entity.SysRoleEntRela;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysRoleEntRelaMapper extends BaseMapper<SysRoleEntRela> {
 
+    List<String> selectEntIdsByUserId(@Param("userId") Long userId, @Param("sysType") String sysType);
 }
