@@ -2,6 +2,7 @@ package com.pay.pay.core.exeception;
 
 import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.model.ApiRes;
+import lombok.Data;
 
 /**
  * Description： 自定义异常
@@ -9,6 +10,7 @@ import com.pay.pay.core.model.ApiRes;
  * @author: 段世超
  * @aate: Created in 2022/8/1 10:46
  */
+@Data
 public class BizException extends RuntimeException {
 
 
