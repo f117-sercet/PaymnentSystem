@@ -3,6 +3,8 @@ package com.pay.pay.core.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -21,6 +23,9 @@ import lombok.experimental.Accessors;
 @TableName("t_mch_info")
 public class MchInfo implements Serializable {
 
+    public static final LambdaQueryWrapper<MchInfo> gw(){
+        return new LambdaQueryWrapper<>();
+    }
     private static final long serialVersionUID=1L;
 
     /**
