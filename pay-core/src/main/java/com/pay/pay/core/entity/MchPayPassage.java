@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,6 +25,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("t_mch_pay_passage")
 public class MchPayPassage implements Serializable {
+
+
+    public static final LambdaQueryWrapper<MchPayPassage> gw(){
+        return new LambdaQueryWrapper<>();
+    }
 
     private static final long serialVersionUID=1L;
 
