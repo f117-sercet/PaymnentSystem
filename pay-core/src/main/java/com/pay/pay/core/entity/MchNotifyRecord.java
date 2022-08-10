@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,6 +25,19 @@ import lombok.experimental.Accessors;
 @TableName("t_mch_notify_record")
 public class MchNotifyRecord implements Serializable {
 
+    //订单类型:1-支付,2-退款, 3-转账
+    public static final byte TYPE_PAY_ORDER = 1;
+    public static final byte TYPE_REFUND_ORDER = 2;
+    public static final byte TYPE_TRANSFER_ORDER = 3;
+
+    //通知状态
+    public static final byte STATE_ING = 1;
+    public static final byte STATE_SUCCESS = 2;
+    public static final byte STATE_FAIL = 3;
+
+    public static final LambdaQueryWrapper<MchNotifyRecord> gw(){
+        return new LambdaQueryWrapper<>();
+    }
     private static final long serialVersionUID=1L;
 
     /**
