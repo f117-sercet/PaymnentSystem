@@ -2,17 +2,23 @@ package com.pay.pay.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.constants.CS;
+import com.pay.pay.core.entity.MchApp;
+import com.pay.pay.core.entity.MchInfo;
 import com.pay.pay.core.entity.PayInterfaceConfig;
 import com.pay.pay.core.entity.PayInterfaceDefine;
+import com.pay.pay.core.exeception.BizException;
 import com.pay.pay.service.mapper.PayInterfaceConfigMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Description： TODO
+ * Description： 支付接口配置参数表 服务实现类
  *
  * @author: 段世超
  * @aate: Created in 2022/8/8 9:07
@@ -73,5 +79,28 @@ public class PayInterfaceConfigService extends ServiceImpl<PayInterfaceConfigMap
         }
         return defineList;
     }
+        List<PayInterfaceDefine> selectAllPayIfConfigListByAppid(String appId){
 
+            MchApp mchApp = mchAppService.getById(appId);
+            if (mchApp == null || mchApp.getState() !=CS.YES){
+
+                throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            }
+            MchInfo mchInfo = mchInfoService.getById(mchApp.getMchNo());
+            if (mchInfo == null || mchInfo.getState() != CS.YES) {
+                throw new BizException(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+            }
+            // 定义支付列表
+            LambdaQueryWrapper<PayInterfaceDefine> queryWrapper = PayInterfaceDefine.gw();
+            queryWrapper.eq(PayInterfaceDefine::getState,CS.YES);
+
+            // 服务商支付参数配置集合
+            Map<String,PayInterfaceDefine> isvPayConfigMap = new HashMap<>();
+
+            //根据商户类型，添加接口是否支持该商户类型条件
+            if (mchInfo.getType() == CS.MCH_TYPE_NORMAL){
+
+                queryWrapper.eq(PayInterfaceDefine::getIsMchMode,CS.YES); // 支持普通商模式；
+            }
+        }
     }
