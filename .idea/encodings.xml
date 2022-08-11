@@ -2,18 +2,24 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/pay-components/pay-components-mq/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pay-components/pay-components-mq/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-components/pay-components-oss/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pay-components/pay-components-oss/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-components/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-components/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-manager/pay-manager-component/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pay-manager/pay-manager-component/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-manager/pay-manager-manager/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pay-manager/pay-manager-manager/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-manager/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-manager/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-merchat/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pay-merchat/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-payment/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pay-z-codegen/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pay-z-codegen/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
