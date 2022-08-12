@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.pay.pay.core.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -24,7 +25,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_pay_interface_config")
-public class PayInterfaceConfig implements Serializable {
+public class PayInterfaceConfig extends BaseModel implements Serializable {
 
     public static final LambdaQueryWrapper<PayInterfaceConfig> gw(){
         return new LambdaQueryWrapper<>();
