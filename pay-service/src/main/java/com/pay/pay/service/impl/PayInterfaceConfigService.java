@@ -139,4 +139,20 @@ public class PayInterfaceConfigService extends ServiceImpl<PayInterfaceConfigMap
             }
             return defineList;
         }
+
+    /**
+     * 查询商户app使用已正确配置了通道信息
+     * @param appId
+     * @param ifCode
+     * @return
+     */
+        public boolean mchAppHasAvailableIfCode(String appId,String ifCode){
+            return this.count(
+                    PayInterfaceConfig.gw()
+                            .eq(PayInterfaceConfig::getIfCode, ifCode)
+                            .eq(PayInterfaceConfig::getState, CS.PUB_USABLE)
+                            .eq(PayInterfaceConfig::getInfoId, appId)
+                            .eq(PayInterfaceConfig::getInfoType, CS.INFO_TYPE_MCH_APP)
+            ) > 0;
+        }
         }
