@@ -16,10 +16,10 @@
 package com.pay.pay.core.model.params;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jeequan.jeepay.core.constants.CS;
-import com.jeequan.jeepay.core.model.params.alipay.AlipayIsvsubMchParams;
-import com.jeequan.jeepay.core.model.params.wxpay.WxpayIsvsubMchParams;
-import com.jeequan.jeepay.core.model.params.ysf.YsfpayIsvsubMchParams;
+import com.pay.pay.core.constants.CS;
+import com.pay.pay.core.model.params.alipay.AlipayIsvsubMchParams;
+import com.pay.pay.core.model.params.wxpay.WxpayIsvsubMchParams;
+import com.pay.pay.core.model.params.ysf.YsfpayIsvsubMchParams;
 
 /*
  * 抽象类 特约商户参数定义

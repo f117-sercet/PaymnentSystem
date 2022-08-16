@@ -17,7 +17,7 @@ package com.pay.pay.core.model;
 
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.jeequan.jeepay.core.utils.JeepayKit;
+import com.pay.pay.core.utils.JeepayKit;
 import lombok.Data;
 
 import java.io.Serializable;

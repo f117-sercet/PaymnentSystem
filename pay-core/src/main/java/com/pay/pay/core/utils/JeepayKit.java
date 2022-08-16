@@ -16,8 +16,8 @@
 package com.pay.pay.core.utils;
 
 import cn.hutool.crypto.SecureUtil;
-import com.jeequan.jeepay.core.constants.CS;
-import com.jeequan.jeepay.core.exception.BizException;
+import com.pay.pay.core.constants.CS;
+import com.pay.pay.core.exeception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 

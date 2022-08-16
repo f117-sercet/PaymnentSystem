@@ -16,7 +16,7 @@
 package com.pay.pay.core.utils;
 
 import cn.hutool.core.date.DateUtil;
-import com.jeequan.jeepay.core.exception.BizException;
+import com.pay.pay.core.exeception.BizException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;

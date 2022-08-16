@@ -15,7 +15,7 @@
  */
 package com.pay.pay.core.model.params.alipay;
 
-import com.jeequan.jeepay.core.model.params.IsvsubMchParams;
+import com.pay.pay.core.model.params.IsvsubMchParams;
 import lombok.Data;
 
 /*
