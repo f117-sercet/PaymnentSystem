@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,6 +25,14 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("t_pay_order_division_record")
 public class PayOrderDivisionRecord implements Serializable {
+
+    public static final byte STATE_WAIT = 0; // 待分账
+    public static final byte STATE_SUCCESS = 1; // 分账成功
+    public static final byte STATE_FAIL = 2; // 分账失败
+
+    public static final LambdaQueryWrapper<PayOrderDivisionRecord> gw(){
+        return new LambdaQueryWrapper<>();
+    }
 
     private static final long serialVersionUID=1L;
 
