@@ -1,11 +1,17 @@
 package com.pay.pay.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pay.pay.core.constants.CS;
+import com.pay.pay.core.entity.MchApp;
 import com.pay.pay.core.entity.MchPayPassage;
+import com.pay.pay.core.entity.PayInterfaceDefine;
+import com.pay.pay.core.exeception.BizException;
 import com.pay.pay.service.mapper.MchPayPassageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -65,7 +71,54 @@ public class MchPayPassageService extends ServiceImpl<MchPayPassageMapper, MchPa
         }
         return list;
     }
+    @Transactional(rollbackFor = Exception.class)
+    public void saveOrUpdateBatchSelf(List<MchPayPassage> mchPayPassageList,String mchhNo){
+        for (MchPayPassage payPassage : mchPayPassageList) {
+            if (payPassage.getState() == CS.NO && payPassage.getId() == null){
 
+                continue;
+            }
+            if (StrUtil.isNotBlank(mchhNo)){  // 商户系统配置通道，添加商户信息
+                payPassage.setMchNo(mchhNo);
+            }
+            if (payPassage.getRate()!= null){
+                payPassage.setRate(payPassage.getRate().divide(new BigDecimal("100"),6,BigDecimal.ROUND_HALF_UP));
+            }
+            if (!saveOrUpdate(payPassage)){
+                throw new BizException("操作失败");
+            }
+        }
+    }
+         /*******根据应用ID和支付方式，查询出商户可用的支付接口*******/
+         public MchPayPassage findMchPayPassage(String mcNo,String appId,String wayCode){
 
+             List<MchPayPassage> list = list(MchPayPassage.gw()
+                     .eq(MchPayPassage::getMchNo,mcNo)
+                     .eq(MchPayPassage::getAppId,appId)
+                     .eq(MchPayPassage::getState,CS.YES)
+                     .eq(MchPayPassage::getWayCode,wayCode)
+             );
+
+             if (list.isEmpty()){
+                 return null;
+             }else {
+                 //返回一个可用通道
+                 HashMap<String,MchPayPassage> mchPayPassageHashMap = new HashMap<>();
+                 for (MchPayPassage mchPayPassage : list) {
+                     mchPayPassageHashMap.put(mchPayPassage.getIfCode(),mchPayPassage);
+                 }
+                 //查询ifCode所有接口
+                 PayInterfaceDefine interfaceDefine = payInterfaceDefineService
+                         .getOne(PayInterfaceDefine.gw()
+                                 .select(PayInterfaceDefine::getIfCode,PayInterfaceDefine::getState)
+                                 .eq(PayInterfaceDefine::getState,CS.YES)
+                                 .in(PayInterfaceDefine::getIfCode,mchPayPassageHashMap.keySet(),false)
+                         );
+                 if (interfaceDefine!= null){
+                     return mchPayPassageHashMap.get(interfaceDefine.getIfCode());
+                 }
+             }
+             return null;
+         }
 
 }
