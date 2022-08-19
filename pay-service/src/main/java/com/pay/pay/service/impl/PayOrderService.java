@@ -45,5 +45,6 @@ public class PayOrderService extends ServiceImpl<PayOrderMapper, PayOrder> {
 
         return update(updateRecord, new LambdaUpdateWrapper<PayOrder>()
                 .eq(PayOrder::getPayOrderId, payOrderId).eq(PayOrder::getState, PayOrder.STATE_INIT));
+
     }
 }
