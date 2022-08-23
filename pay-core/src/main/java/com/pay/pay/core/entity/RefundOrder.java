@@ -3,6 +3,8 @@ package com.pay.pay.core.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -21,7 +23,17 @@ import lombok.experimental.Accessors;
 @TableName("t_refund_order")
 public class RefundOrder implements Serializable {
 
+    public static final byte STATE_INIT = 0; //订单生成
+    public static final byte STATE_ING = 1; //退款中
+    public static final byte STATE_SUCCESS = 2; //退款成功
+    public static final byte STATE_FAIL = 3; //退款失败
+    public static final byte STATE_CLOSED = 4; //退款任务关闭
+
     private static final long serialVersionUID=1L;
+
+    public static final LambdaQueryWrapper<RefundOrder> gw(){
+        return new LambdaQueryWrapper<>();
+    }
 
     /**
      * 退款订单号（支付系统生成订单号）
