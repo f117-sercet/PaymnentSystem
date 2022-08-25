@@ -1,10 +1,12 @@
 package com.pay.pay.core.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -19,7 +21,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("t_sys_user_role_rela")
 public class SysUserRoleRela implements Serializable {
-
+    public static final LambdaQueryWrapper<SysUserRoleRela> gw(){
+        return new LambdaQueryWrapper<>();
+    }
     private static final long serialVersionUID=1L;
 
     /**

@@ -1,31 +1,40 @@
 package com.pay.pay.core.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.pay.pay.core.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 /**
  * <p>
- * 系统权限表
+ * 系统配置表
  * </p>
  *
  * @author [mybatis plus generator]
- * @since 2022-07-17
+ * @since 2021-04-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_sys_entitlement")
-public class SysEntitlement implements Serializable {
+public class SysEntitlement extends BaseModel {
+
+    //gw
+    public static final LambdaQueryWrapper<SysEntitlement> gw(){
+        return new LambdaQueryWrapper<>();
+    }
 
     private static final long serialVersionUID=1L;
 
     /**
      * 权限ID[ENT_功能模块_子模块_操作], eg: ENT_ROLE_LIST_ADD
      */
+    @TableId
     private String entId;
 
     /**

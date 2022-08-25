@@ -1,11 +1,13 @@
 package com.pay.pay.core.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -20,6 +22,10 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("t_sys_config")
 public class SysConfig implements Serializable {
+
+    public static final LambdaQueryWrapper<SysConfig> gw(){
+        return new LambdaQueryWrapper<>();
+    }
 
     private static final long serialVersionUID=1L;
 

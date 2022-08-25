@@ -1,11 +1,13 @@
 package com.pay.pay.core.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -20,6 +22,23 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("t_transfer_order")
 public class TransferOrder implements Serializable {
+
+
+
+    /** 入账方式 **/
+    public static final String ENTRY_WX_CASH = "WX_CASH";
+    public static final String ENTRY_ALIPAY_CASH = "ALIPAY_CASH";
+    public static final String ENTRY_BANK_CARD = "BANK_CARD";
+
+    public static final byte STATE_INIT = 0; //订单生成
+    public static final byte STATE_ING = 1; //转账中
+    public static final byte STATE_SUCCESS = 2; //转账成功
+    public static final byte STATE_FAIL = 3; //转账失败
+    public static final byte STATE_CLOSED = 4; //转账关闭
+
+    public static final LambdaQueryWrapper<TransferOrder> gw(){
+        return new LambdaQueryWrapper<>();
+    }
 
     private static final long serialVersionUID=1L;
 
