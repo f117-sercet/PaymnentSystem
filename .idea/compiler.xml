@@ -23,16 +23,16 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="PaymnentSystem" options="" />
       <module name="pay-components" options="" />
-      <module name="pay-components-mq" options="" />
-      <module name="pay-components-oss" options="" />
+      <module name="pay-components-mq" options="-parameters" />
+      <module name="pay-components-oss" options="-parameters" />
       <module name="pay-core" options="-parameters" />
       <module name="pay-manager" options="" />
-      <module name="pay-manager-component" options="" />
-      <module name="pay-manager-manager" options="" />
-      <module name="pay-merchat" options="" />
+      <module name="pay-manager-component" options="-parameters" />
+      <module name="pay-manager-manager" options="-parameters" />
+      <module name="pay-merchat" options="-parameters" />
       <module name="pay-payment" options="-parameters" />
       <module name="pay-service" options="-parameters" />
-      <module name="pay-z-codegen" options="" />
+      <module name="pay-z-codegen" options="-parameters" />
     </option>
   </component>
 </project>
