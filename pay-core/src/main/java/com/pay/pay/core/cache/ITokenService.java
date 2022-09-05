@@ -23,7 +23,7 @@ public class ITokenService {
 
         //保存token
         //保存token
-        RedisUtil.set(cacheKey, userDetail, CS.TOKEN_TIME);  //缓存时间2小时, 保存具体信息而只是uid, 因为很多场景需要得到信息， 例如验证接口权限， 每次请求都需要获取。 将信息封装在一起减少磁盘请求次数， 如果放置多个key会增加非顺序读取。
+        RedisUtil.set(cacheKey, userDetail, CS.TOKEN_TIME);  //缓存 时间2小时, 保存具体信息而只是uid, 因为很多场景需要得到信息， 例如验证接口权限， 每次请求都需要获取。 将信息封装在一起减少磁盘请求次数， 如果放置多个key会增加非顺序读取。
     }
     /** 退出时，清除token信息 */
     public static void removeIToken(String iToken, Long currentUID){
