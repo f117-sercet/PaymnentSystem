@@ -48,8 +48,14 @@ public class AliyunOssService implements IOssService {
      * @return 完整路径。
      */
     @Override
-    public String upload2PreviewUrl(OssSavePlaceEnum ossSavePlaceEnum, MultipartFile multipartFile, String saveDirAndFileName) {
-        return null;
+    public String upload2PreviewUrl(OssSavePlaceEnum ossSavePlaceEnum, MultipartFile 
+            multipartFile, String saveDirAndFileName) {
+        
+        String fullPath = getFileKey(ossSavePlaceEnum, saveDirAndFileName);
+
+    }
+
+    private String getFileKey(OssSavePlaceEnum ossSavePlaceEnum, String saveDirAndFileName) {
     }
 
     @Override
