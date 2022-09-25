@@ -89,4 +89,28 @@ public class IsvInfoController extends CommonCtrl {
         mqSender.send(ResetIsvMchAppInfoConfigMQ.build(ResetIsvMchAppInfoConfigMQ.RESET_TYPE_ISV_INFO, isvNo, null, null));
         return ApiRes.ok();
     }
+
+
+    /***
+     * 更新服务商信息
+     * @param isvNo
+     * @param isvNo
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ENT_ISV_INFO_EDIT')")
+    @MethodLog(remark = "更新服务商信息")
+    @RequestMapping(value="/{isvNo}", method = RequestMethod.PUT)
+    public ApiRes update(@PathVariable("isvNo") String isvNo) {
+        IsvInfo isvInfo = getObject(IsvInfo.class);
+        isvInfo.setIsvNo(isvNo);
+        boolean result = isvInfoService.updateById(isvInfo);
+
+        // 推送mq到目前节点进行更新数据
+        mqSender.send(ResetIsvMchAppInfoConfigMQ.build(ResetIsvMchAppInfoConfigMQ.RESET_TYPE_ISV_INFO, isvNo, null, null));
+
+        if (!result) {
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_UPDATE);
+        }
+        return ApiRes.ok();
+    }
    }
