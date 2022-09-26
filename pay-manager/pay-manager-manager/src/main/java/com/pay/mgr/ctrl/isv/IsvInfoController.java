@@ -113,4 +113,22 @@ public class IsvInfoController extends CommonCtrl {
         }
         return ApiRes.ok();
     }
+
+    /**
+     * 查看商务信息
+     * @param isvNo
+     * @return
+     */
+    @PreAuthorize("hasAnyAuthority('ENT_ISV_INFO_VIEW', 'ENT_ISV_INFO_EDIT')")
+    @RequestMapping(value="/{isvNo}", method = RequestMethod.GET)
+    public ApiRes detail(@PathVariable("isvNo") String isvNo){
+
+        IsvInfo isvInfo = isvInfoService.getById(isvNo);
+
+        if (isvInfo == null){
+
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_CREATE);
+        }
+         return ApiRes.ok();
+    }
    }
