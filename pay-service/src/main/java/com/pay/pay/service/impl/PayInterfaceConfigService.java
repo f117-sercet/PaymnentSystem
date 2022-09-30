@@ -51,11 +51,13 @@ public class PayInterfaceConfigService extends ServiceImpl<PayInterfaceConfigMap
 
     /**
      * 根据 账户类型，账户号，获取支付配置参数
+     *
      * @param infoType
      * @param infoId
+     * @param isvNo
      * @return
      */
-    public List<PayInterfaceDefine> selectAllPayIfConfigListByIsvNo(Byte infoType, String infoId){
+    public List<PayInterfaceDefine> selectAllPayIfConfigListByIsvNo(Byte infoType, String infoId, String isvNo){
 
         // 支付定义列表
         LambdaQueryWrapper<PayInterfaceDefine> queryWrapper = PayInterfaceDefine.gw();
