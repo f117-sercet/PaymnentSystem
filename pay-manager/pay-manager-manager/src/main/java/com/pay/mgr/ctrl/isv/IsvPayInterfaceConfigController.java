@@ -2,16 +2,19 @@ package com.pay.mgr.ctrl.isv;
 
 import com.pay.components.mq.vender.IMQSender;
 import com.pay.mgr.ctrl.common.CommonCtrl;
+import com.pay.pay.core.aop.MethodLog;
 import com.pay.pay.core.constants.CS;
+import com.pay.pay.core.entity.PayInterfaceConfig;
 import com.pay.pay.core.entity.PayInterfaceDefine;
 import com.pay.pay.core.model.ApiRes;
+import com.pay.pay.core.model.params.IsvParams;
 import com.pay.pay.service.impl.PayInterfaceConfigService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -41,5 +44,39 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
 
         List<PayInterfaceDefine> list = payInterfaceConfigService.selectAllPayIfConfigListByIsvNo(CS.INFO_TYPE_ISV, ("isvNo"),getValStringRequired("isvNo"));
         return ApiRes.ok(list);
+    }
+
+    @PreAuthorize("hasAuthority('ENT_ISV_PAY_CONFIG_VIEW')")
+    @GetMapping("/{isvNo}/{ifCode}")
+    public ApiRes getByMchNo(@PathVariable(value = "isvNo") String isvNo, @PathVariable(value = "ifCode") String ifCode) {
+
+        PayInterfaceConfig payInterfaceConfig = payInterfaceConfigService.getByInfoIdAndIfCode(CS.INFO_TYPE_ISV, isvNo, ifCode);
+        if (payInterfaceConfig != null) {
+            if (payInterfaceConfig.getIfRate() != null) {
+                payInterfaceConfig.setIfRate(payInterfaceConfig.getIfRate().multiply(new BigDecimal("100")));
+            }
+            if (StringUtils.isNotBlank(payInterfaceConfig.getIfParams())) {
+                IsvParams isvParams = IsvParams.factory(payInterfaceConfig.getIfCode(), payInterfaceConfig.getIfParams());
+                if (isvParams != null) {
+                    payInterfaceConfig.setIfParams(isvParams.deSenData());
+                }
+            }
+        }
+        return ApiRes.ok(payInterfaceConfig);
+    }
+
+    /***
+     * 服务商支付接口参数配置
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ENT_ISV_PAY_CONFIG_ADD')")
+    @PostMapping
+    @MethodLog(remark = "更新服务商支付参数")
+    public ApiRes saveOrUpdate(){
+
+        String infoId = getValStringRequired("infoId");
+        String ifCode = getValStringRequired("ifCode");
+        return ApiRes.ok();
+
     }
 }
