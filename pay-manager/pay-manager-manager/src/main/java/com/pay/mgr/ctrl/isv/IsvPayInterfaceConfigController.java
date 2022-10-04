@@ -76,7 +76,24 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
 
         String infoId = getValStringRequired("infoId");
         String ifCode = getValStringRequired("ifCode");
-        return ApiRes.ok();
 
+        PayInterfaceConfig payInterfaceConfig = getObject(PayInterfaceConfig.class);
+        payInterfaceConfig.setInfoType(CS.INFO_TYPE_ISV);
+
+        // 存入真实费率
+        if (payInterfaceConfig.getIfRate() != null) {
+            payInterfaceConfig.setIfRate(payInterfaceConfig.getIfRate().divide(new BigDecimal("100"), 6, BigDecimal.ROUND_HALF_UP));
+        }
+        //添加更新者信息
+        Long userId = getCurrentUser().getSysUser().getSysUserId();
+        String realName = getCurrentUser().getSysUser().getRealname();
+        payInterfaceConfig.setUpdatedUid(userId);
+        payInterfaceConfig.setUpdatedBy(realName);
+
+        //根据 服务商号、接口类型 获取商户参数配置
+        PayInterfaceConfig dbRecoed = payInterfaceConfigService.getByInfoIdAndIfCode(CS.INFO_TYPE_ISV, infoId, ifCode);
+        //若配置存在，为saveOrUpdate添加ID，第一次配置添加创建者
+        return ApiRes.ok();
     }
+
 }
