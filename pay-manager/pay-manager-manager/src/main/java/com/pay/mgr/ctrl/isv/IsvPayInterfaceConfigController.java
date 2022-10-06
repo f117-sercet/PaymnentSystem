@@ -1,13 +1,16 @@
 package com.pay.mgr.ctrl.isv;
 
+import com.pay.components.mq.model.ResetIsvMchAppInfoConfigMQ;
 import com.pay.components.mq.vender.IMQSender;
 import com.pay.mgr.ctrl.common.CommonCtrl;
 import com.pay.pay.core.aop.MethodLog;
+import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.constants.CS;
 import com.pay.pay.core.entity.PayInterfaceConfig;
 import com.pay.pay.core.entity.PayInterfaceDefine;
 import com.pay.pay.core.model.ApiRes;
 import com.pay.pay.core.model.params.IsvParams;
+import com.pay.pay.core.utils.StringKit;
 import com.pay.pay.service.impl.PayInterfaceConfigService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -72,7 +75,7 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
     @PreAuthorize("hasAuthority('ENT_ISV_PAY_CONFIG_ADD')")
     @PostMapping
     @MethodLog(remark = "更新服务商支付参数")
-    public ApiRes saveOrUpdate(){
+    public ApiRes saveOrUpdate() {
 
         String infoId = getValStringRequired("infoId");
         String ifCode = getValStringRequired("ifCode");
@@ -84,6 +87,7 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
         if (payInterfaceConfig.getIfRate() != null) {
             payInterfaceConfig.setIfRate(payInterfaceConfig.getIfRate().divide(new BigDecimal("100"), 6, BigDecimal.ROUND_HALF_UP));
         }
+
         //添加更新者信息
         Long userId = getCurrentUser().getSysUser().getSysUserId();
         String realName = getCurrentUser().getSysUser().getRealname();
@@ -93,6 +97,24 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
         //根据 服务商号、接口类型 获取商户参数配置
         PayInterfaceConfig dbRecoed = payInterfaceConfigService.getByInfoIdAndIfCode(CS.INFO_TYPE_ISV, infoId, ifCode);
         //若配置存在，为saveOrUpdate添加ID，第一次配置添加创建者
+        if (dbRecoed != null) {
+            payInterfaceConfig.setId(dbRecoed.getId());
+
+            // 合并支付参数
+            payInterfaceConfig.setIfParams(StringKit.marge(dbRecoed.getIfParams(), payInterfaceConfig.getIfParams()));
+        }else {
+            payInterfaceConfig.setCreatedUid(userId);
+            payInterfaceConfig.setCreatedBy(realName);
+        }
+
+        boolean result = payInterfaceConfigService.saveOrUpdate(payInterfaceConfig);
+        if (!result) {
+            return ApiRes.fail(ApiCodeEnum.SYSTEM_ERROR, "配置失败");
+        }
+
+        // 推送mq到目前节点进行更新数据
+        mqSender.send(ResetIsvMchAppInfoConfigMQ.build(ResetIsvMchAppInfoConfigMQ.RESET_TYPE_ISV_INFO, infoId, null, null));
+
         return ApiRes.ok();
     }
 
