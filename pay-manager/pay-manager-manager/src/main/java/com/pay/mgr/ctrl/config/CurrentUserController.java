@@ -34,6 +34,7 @@ public class CurrentUserController extends CommonCtrl {
         ///当前用户信息
         JeeUserDetails jeeUserDetails = getCurrentUser();
         SysUser user = jeeUserDetails.getSysUser();
+
         return null;
     }
 
