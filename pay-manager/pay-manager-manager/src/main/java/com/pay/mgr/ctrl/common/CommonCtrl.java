@@ -17,7 +17,7 @@ public class CommonCtrl extends AbstractCtrl {
     @Autowired
     protected SysTemYmlConfig mainConfig;
 
-    /** 获取当前用户ID */
+    /** 获取当前用户ID **/
     protected JeeUserDetails getCurrentUser(){
 
         return (JeeUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
