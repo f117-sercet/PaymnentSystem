@@ -7,4 +7,6 @@ package com.pay.pay.core.cache;
  * @aate: Created in 2022/10/14 18:12
  */
 public class RedisUtil {
+
+
 }
