@@ -110,6 +110,7 @@ public class RedisUtil {
             } else {
                 getStringRedisTemplate().delete(CollectionUtils.arrayToList(key));
             }
+
         }
     }
 
