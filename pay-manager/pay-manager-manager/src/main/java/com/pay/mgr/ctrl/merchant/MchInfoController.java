@@ -1,5 +1,6 @@
 package com.pay.mgr.ctrl.merchant;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,6 +9,7 @@ import com.pay.components.mq.model.ResetIsvMchAppInfoConfigMQ;
 import com.pay.components.mq.vender.IMQSender;
 import com.pay.mgr.ctrl.common.CommonCtrl;
 import com.pay.pay.core.aop.MethodLog;
+import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.constants.CS;
 import com.pay.pay.core.entity.MchInfo;
 import com.pay.pay.core.entity.SysUser;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -131,10 +134,58 @@ public class MchInfoController extends CommonCtrl {
         Set<Long> removeCacheUserIdList = new HashSet<>();
 
         // 如果 商户状态为禁用状态,清除该商户的登录信息
-        if(mchInfo.getState() == CS.NO){
-
-            sysUserAuthService.list();
+        if (mchInfo.getState() == CS.NO) {
+            sysUserService.list( SysUser.gw().select(SysUser::getSysUserId).eq(SysUser::getBelongInfoId, mchNo).eq(SysUser::getSysType, CS.SYS_TYPE.MCH) )
+                    .stream().forEach(u -> removeCacheUserIdList.add(u.getSysUserId()));
         }
 
+        // 判断密码是否需要重置
+        if(getReqParamJSON().getBooleanValue("restPass")){
+            // 待更新的密码
+            // 待更新的密码
+            String updatePwd = getReqParamJSON().getBoolean("defaultPass") ? CS.DEFAULT_PWD : Base64.decodeStr(getValStringRequired("confirmPwd")) ;
+            // 获取商户超管
+            Long mchAdminUserId = sysUserService.findMchAdminUserId(mchNo);
+
+            //重置超管密码
+            sysUserAuthService.resetAuthInfo(mchAdminUserId, null, null, updatePwd, CS.SYS_TYPE.MCH);
+
+            //删除超管登录信息
+            removeCacheUserIdList.add(mchAdminUserId);
+        }
+        // 推送mq删除redis用户认证信息
+        if (!removeCacheUserIdList.isEmpty()) {
+            mqSender.send(CleanMchLoginAuthCacheMQ.build(new ArrayList<>(removeCacheUserIdList)));
+        }
+
+        //更新商户信息
+        if (!mchInfoService.updateById(mchInfo)) {
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_UPDATE);
+        }
+
+        // 推送mq到目前节点进行更新数据
+        mqSender.send(ResetIsvMchAppInfoConfigMQ.build(ResetIsvMchAppInfoConfigMQ.RESET_TYPE_MCH_INFO, null, mchNo, null));
+
+        return ApiRes.ok();
+    }
+
+    /**
+     * @author: pangxiaoyu
+     * @date: 2021/6/7 16:14
+     * @describe: 查询商户信息
+     */
+    @PreAuthorize("hasAnyAuthority('ENT_MCH_INFO_VIEW', 'ENT_MCH_INFO_EDIT')")
+    @RequestMapping(value="/{mchNo}", method = RequestMethod.GET)
+    public ApiRes detail(@PathVariable("mchNo") String mchNo) {
+        MchInfo mchInfo = mchInfoService.getById(mchNo);
+        if (mchInfo == null) {
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
+        }
+
+        SysUser sysUser = sysUserService.getById(mchInfo.getInitUserId());
+        if (sysUser != null) {
+            mchInfo.addExt("loginUserName", sysUser.getLoginUsername());
+        }
+        return ApiRes.ok(mchInfo);
     }
 }

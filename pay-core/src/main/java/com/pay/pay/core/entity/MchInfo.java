@@ -1,13 +1,14 @@
 package com.pay.pay.core.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.pay.pay.core.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -21,7 +22,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_mch_info")
-public class MchInfo implements Serializable {
+public class MchInfo extends BaseModel implements Serializable {
 
     public static final LambdaQueryWrapper<MchInfo> gw(){
         return new LambdaQueryWrapper<>();
