@@ -2,6 +2,7 @@ package com.pay.mgr.ctrl.merchant;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pay.mgr.ctrl.common.CommonCtrl;
 import com.pay.pay.core.entity.PayWay;
 import com.pay.pay.core.model.ApiRes;
@@ -48,6 +49,10 @@ public class MchPayPassageConfigController extends CommonCtrl {
         if (StrUtil.isNotBlank(wayCode)) {
             wrapper.eq(PayWay::getWayCode,wayCode);
         }
+        if (StrUtil.isNotBlank(wayName)) {
+            wrapper.like(PayWay::getWayName,wayName);
+        }
+        IPage<PayWay> payWayPage = payWayService.page(getIPage(),wrapper);
         return ApiRes.ok();
     }
 
