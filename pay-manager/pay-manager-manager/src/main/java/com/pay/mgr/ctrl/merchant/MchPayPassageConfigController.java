@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.pay.mgr.ctrl.common.CommonCtrl;
+import com.pay.pay.core.constants.CS;
 import com.pay.pay.core.entity.MchPayPassage;
 import com.pay.pay.core.entity.PayWay;
 import com.pay.pay.core.model.ApiRes;
@@ -65,12 +66,17 @@ public class MchPayPassageConfigController extends CommonCtrl {
             payWayPage.getRecords().stream().forEach(payWay->wayCodeList.add(payWay.getWayCode()));
 
             // 应用支付通道集合
-            // 应用支付通道集合
             List<MchPayPassage> mchPayPassageList = mchPayPassageService.list(MchPayPassage.gw()
                     .select(MchPayPassage::getWayCode, MchPayPassage::getState)
                     .eq(MchPayPassage::getAppId, appId)
                     .in(MchPayPassage::getWayCode, wayCodeList));
 
+            for (PayWay payWay : payWayPage.getRecords()){
+                payWay.addExt("passageState", CS.NO);
+                for (MchPayPassage mchPayPassage : mchPayPassageList){
+
+                }
+            }
         }
         return ApiRes.ok();
     }
