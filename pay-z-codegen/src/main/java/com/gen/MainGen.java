@@ -17,6 +17,7 @@ import java.io.File;
  */
 public class MainGen {
 
+    //123
 
         public static final String THIS_MODULE_NAME = "pay-core"; //当前项目名称
 
