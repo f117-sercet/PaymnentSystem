@@ -1,14 +1,15 @@
 package com.pay.pay.core.entity;
 
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.pay.pay.core.model.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -73,7 +74,7 @@ public class PayInterfaceDefine extends BaseModel implements Serializable {
     /**
      * 支持的支付方式 ["wxpay_jsapi", "wxpay_bar"]
      */
-    private String wayCodes;
+    private JSONArray wayCodes;
 
     /**
      * 页面展示：卡片-图标
