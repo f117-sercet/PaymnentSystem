@@ -82,4 +82,32 @@ public class PayInterfaceDefineController extends CommonCtrl {
         }
         return ApiRes.ok();
     }
+
+    /**
+     * 更新支付接口
+     * @param ifCode
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ENT_PC_IF_DEFINE_EDIT')")
+    @PutMapping("/{ifCode}")
+    @MethodLog(remark = "更新支付接口")
+    public ApiRes update(@PathVariable("ifCode") String ifCode){
+        PayInterfaceDefine payInterfaceDefine = getObject(PayInterfaceDefine.class);
+        payInterfaceDefine.setIfCode(ifCode);
+
+        JSONArray jsonArray = new JSONArray();
+        String[] wayCodes = getValStringRequired("wayCodeStrs").split(",");
+        for (String wayCode : wayCodes) {
+            JSONObject object = new JSONObject();
+            object.put("wayCode", wayCode);
+            jsonArray.add(object);
+        }
+        payInterfaceDefine.setWayCodes(jsonArray);
+
+        boolean result = payInterfaceDefineService.updateById(payInterfaceDefine);
+        if (!result) {
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_UPDATE);
+        }
+        return ApiRes.ok();
+    }
 }
