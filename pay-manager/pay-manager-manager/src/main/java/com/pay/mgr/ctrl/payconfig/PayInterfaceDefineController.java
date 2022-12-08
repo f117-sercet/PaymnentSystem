@@ -5,7 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.pay.mgr.ctrl.common.CommonCtrl;
 import com.pay.pay.core.aop.MethodLog;
 import com.pay.pay.core.constants.ApiCodeEnum;
+import com.pay.pay.core.entity.PayInterfaceConfig;
 import com.pay.pay.core.entity.PayInterfaceDefine;
+import com.pay.pay.core.entity.PayOrder;
+import com.pay.pay.core.exeception.BizException;
 import com.pay.pay.core.model.ApiRes;
 import com.pay.pay.service.impl.PayInterfaceConfigService;
 import com.pay.pay.service.impl.PayInterfaceDefineService;
@@ -107,6 +110,23 @@ public class PayInterfaceDefineController extends CommonCtrl {
         boolean result = payInterfaceDefineService.updateById(payInterfaceDefine);
         if (!result) {
             return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_UPDATE);
+        }
+        return ApiRes.ok();
+    }
+    @PreAuthorize("hasAuthority('ENT_PC_IF_DEFINE_DEL')")
+    @DeleteMapping("/{ifCode}")
+    @MethodLog(remark = "删除支付接口")
+    public ApiRes delete(@PathVariable("ifCode") String ifCode) {
+
+        // 校验该支付方式是否有服务商或商户配置参数或者已有订单
+        if (payInterfaceConfigService.count(PayInterfaceConfig.gw().eq(PayInterfaceConfig::getIfCode, ifCode)) > 0
+                || payOrderService.count(PayOrder.gw().eq(PayOrder::getIfCode, ifCode)) > 0) {
+            throw new BizException("该支付接口已有服务商或商户配置参数或已发生交易，无法删除！");
+        }
+
+        boolean result = payInterfaceDefineService.removeById(ifCode);
+        if (!result) {
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_DELETE);
         }
         return ApiRes.ok();
     }
