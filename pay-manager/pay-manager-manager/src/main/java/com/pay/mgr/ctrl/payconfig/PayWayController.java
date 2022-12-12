@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pay.mgr.ctrl.common.CommonCtrl;
 import com.pay.pay.core.aop.MethodLog;
 import com.pay.pay.core.constants.ApiCodeEnum;
+import com.pay.pay.core.entity.MchPayPassage;
+import com.pay.pay.core.entity.PayOrder;
 import com.pay.pay.core.entity.PayWay;
 import com.pay.pay.core.exeception.BizException;
 import com.pay.pay.core.model.ApiRes;
@@ -88,4 +90,41 @@ public class PayWayController extends CommonCtrl {
         }
         return ApiRes.ok();
     }
+
+    /**
+     * 更新支付方式
+     * @param wayCode
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ENT_PC_WAY_EDIT')")
+    @PutMapping("/{wayCode}")
+    @MethodLog(remark = "更新支付方式")
+    public ApiRes update(@PathVariable("wayCode") String wayCode) {
+        PayWay payWay = getObject(PayWay.class);
+        payWay.setWayCode(wayCode);
+        boolean result = payWayService.updateById(payWay);
+        if (!result) {
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_UPDATE);
+        }
+        return ApiRes.ok();
+    }
+
+    @DeleteMapping("/{wayCode}")
+    @MethodLog(remark = "删除支付方式")
+    public ApiRes delete(@PathVariable("wayCode") String wayCode) {
+
+        // 校验该支付方式是否有商户已配置通道或者已有订单
+        if (mchPayPassageService.count(MchPayPassage.gw().eq(MchPayPassage::getWayCode, wayCode)) > 0
+                || payOrderService.count(PayOrder.gw().eq(PayOrder::getWayCode, wayCode)) > 0) {
+            throw new BizException("该支付方式已有商户配置通道或已发生交易，无法删除！");
+        }
+
+        boolean result = payWayService.removeById(wayCode);
+        if (!result) {
+            return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_DELETE);
+        }
+        return ApiRes.ok();
+    }
+
+
 }
