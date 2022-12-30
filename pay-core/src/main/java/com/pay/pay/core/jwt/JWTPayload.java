@@ -7,7 +7,13 @@ import lombok.Data;
 import java.util.Map;
 
 /**
- * Description： TODO
+ * Description：JWT payload 载体
+ * * 格式：
+ *     {
+ *         "sysUserId": "10001",
+ *         "created": "1568250147846",
+ *         "cacheKey": "KEYKEYKEYKEY",
+ *     }
  *
  * @author: 段世超
  * @aate: Created in 2022/8/2 15:57
