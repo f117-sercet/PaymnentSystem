@@ -26,9 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Description： 认证配置
@@ -104,7 +102,33 @@ public class AuthService {
 
     }
 
+    /**
+     * 根据用户ID 更新缓存中的权限集合， 使得分配实时生效
+     * @param sysUserIdList
+     */
+     public  void refAuthentication(List<Long> sysUserIdList){
+         
+         if (sysUserIdList == null || sysUserIdList.isEmpty()){
+             
+             return ;
+         }
+         Map<Long,SysUser> sysUserMap = new HashMap<>();
+         
+         // 查询 sysUserId 和 state
+         sysUserService.list(SysUser.gw()
+                 .select(SysUser::getSysUserId,SysUser::getState)
+                 .in(SysUser::getSysUserId,sysUserIdList))
+                 .stream().forEach(item->sysUserMap.put(item.getSysUserId(), item));
+
+         for (Long sysUserId : sysUserIdList) {
+             
+         }
+         
+     }
+
+
     private Collection<SimpleGrantedAuthority> getUserAuthority(SysUser sysUser) {
+
 
         //用户拥有的角色集合  需要以ROLE_ 开头,  用户拥有的权限集合
         List<String> roleList = sysRoleService.findListByUser(sysUser.getSysUserId());

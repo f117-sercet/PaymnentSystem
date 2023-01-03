@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pay.pay.core.constants.CS;
-import com.pay.pay.core.entity.MchApp;
 import com.pay.pay.core.entity.MchPayPassage;
 import com.pay.pay.core.entity.PayInterfaceDefine;
 import com.pay.pay.core.exeception.BizException;
@@ -78,7 +77,7 @@ public class MchPayPassageService extends ServiceImpl<MchPayPassageMapper, MchPa
 
                 continue;
             }
-            if (StrUtil.isNotBlank(mchhNo)){  // 商户系统配置通道，添加商户信息
+            if (StrUtil.isNotBlank(mchhNo)){
                 payPassage.setMchNo(mchhNo);
             }
             if (payPassage.getRate()!= null){
