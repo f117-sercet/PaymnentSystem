@@ -3,6 +3,7 @@ package com.pay.mgr.service;
 import cn.hutool.core.util.IdUtil;
 import com.pay.mgr.config.SysTemYmlConfig;
 import com.pay.pay.core.cache.ITokenService;
+import com.pay.pay.core.cache.RedisUtil;
 import com.pay.pay.core.constants.CS;
 import com.pay.pay.core.entity.SysUser;
 import com.pay.pay.core.exeception.BizException;
@@ -121,10 +122,20 @@ public class AuthService {
                  .stream().forEach(item->sysUserMap.put(item.getSysUserId(), item));
 
          for (Long sysUserId : sysUserIdList) {
-             
+
+             Collection<String> cacheKeyList = RedisUtil.keys(CS.getCacheKeyToken(sysUserId, "*"));
+            //Collection arry = new ArrayList<>();
+
+         if (cacheKeyList == null || cacheKeyList.isEmpty()){
+
+             continue;
          }
-         
-     }
+             for (String cacheKey : cacheKeyList) {
+                 //用户不存在 || 已禁用 需要删除Redis
+                 if(sysUserMap.get(sysUserId) == null || sysUserMap.get(sysUserId).getState() == CS.PUB_DISABLE){
+                     RedisUtil.del(cacheKey);
+                     continue;
+                 }
 
 
     private Collection<SimpleGrantedAuthority> getUserAuthority(SysUser sysUser) {
