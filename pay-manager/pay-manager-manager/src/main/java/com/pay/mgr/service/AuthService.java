@@ -136,6 +136,23 @@ public class AuthService {
                      RedisUtil.del(cacheKey);
                      continue;
                  }
+                 JeeUserDetails jwtBaseUser = RedisUtil.getObject(cacheKey, JeeUserDetails.class);
+                 if(jwtBaseUser == null){
+                     continue;
+                 }
+
+                 // 重新放置sysUser对象
+                 jwtBaseUser.setSysUser(sysUserService.getById(sysUserId));
+
+                 //查询放置权限数据
+                 jwtBaseUser.setAuthorities(getUserAuthority(jwtBaseUser.getSysUser()));
+
+                 //保存token  失效时间不变
+                 RedisUtil.set(cacheKey, jwtBaseUser);
+             }
+         }
+
+     }
 
 
     private Collection<SimpleGrantedAuthority> getUserAuthority(SysUser sysUser) {
