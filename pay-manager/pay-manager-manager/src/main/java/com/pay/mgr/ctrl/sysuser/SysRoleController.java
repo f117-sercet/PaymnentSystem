@@ -1,6 +1,7 @@
 package com.pay.mgr.ctrl.sysuser;
 
 import com.pay.mgr.ctrl.common.CommonCtrl;
+import com.pay.mgr.service.AuthService;
 import com.pay.pay.service.impl.SysRoleEntRelaService;
 import com.pay.pay.service.impl.SysRoleService;
 import com.pay.pay.service.impl.SysUserRoleRelaService;

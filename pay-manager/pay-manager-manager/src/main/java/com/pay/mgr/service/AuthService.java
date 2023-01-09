@@ -154,6 +154,23 @@ public class AuthService {
 
      }
 
+     public void delAuthentication(List<Long>sysUserIdList){
+
+         if (sysUserIdList == null || sysUserIdList.isEmpty()){
+               return;
+         }
+         for (Long sysUserId : sysUserIdList) {
+             Collection<String> cacheKeyList = RedisUtil.keys(CS.getCacheKeyToken(sysUserId, "*"));
+             if (cacheKeyList == null || cacheKeyList.isEmpty()){
+                   continue;
+             }
+             for (String cacheKey : cacheKeyList) {
+
+                 RedisUtil.del(cacheKey);
+             }
+         }
+     }
+
 
     private Collection<SimpleGrantedAuthority> getUserAuthority(SysUser sysUser) {
 
