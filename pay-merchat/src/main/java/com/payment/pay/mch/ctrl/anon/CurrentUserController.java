@@ -3,6 +3,8 @@ package com.payment.pay.mch.ctrl.anon;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.pay.pay.core.aop.MethodLog;
+import com.pay.pay.core.cache.ITokenService;
 import com.pay.pay.core.constants.CS;
 import com.pay.pay.core.entity.SysEntitlement;
 import com.pay.pay.core.entity.SysUser;
@@ -12,7 +14,9 @@ import com.pay.pay.core.utils.TreeDataBuilder;
 import com.pay.pay.service.impl.SysEntitlementService;
 import com.pay.pay.service.impl.SysUserAuthService;
 import com.pay.pay.service.impl.SysUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -68,4 +72,45 @@ public class CurrentUserController extends  CommonCtrl {
         user.addExt("allMenuRouteTree", allMenuRouteTree);
         return ApiRes.ok(getCurrentUser().getSysUser());
     }
+
+    /**
+     * 修改个人信息
+     * @return
+     */
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    @MethodLog(remark = "修改信息")
+    public ApiRes modifyCurrentUserInfo(){
+
+        // 修改头像
+        String avatarUrl = getValString("avatarUrl");
+        String realname = getValString("realname");
+        Byte sex = getValByte("sex");
+        SysUser updateRecord = new SysUser();
+         updateRecord.setSysUserId(getCurrentUser().getSysUser().getSysUserId());
+
+         if (StringUtils.isNotBlank(realname)){
+
+             updateRecord.setAvatarUrl(avatarUrl);
+         }
+         if (StringUtils.isNotEmpty(realname)){
+
+             updateRecord.setRealname(realname);
+         }
+         if (StringUtils.isNotBlank(realname)){
+
+             if (sex !=null){
+                 updateRecord.setSex(sex);
+             }
+             sysUserService.updateById(updateRecord);
+         }
+
+         // 保存Redis最新数据
+        JeeUserDetails currentUser = getCurrentUser();
+         currentUser.setSysUser(sysUserService.getById(getCurrentUser().getSysUser().getSysUserId()));
+        ITokenService.refData(currentUser);
+
+        return ApiRes.ok();
+    }
+
+
     }
