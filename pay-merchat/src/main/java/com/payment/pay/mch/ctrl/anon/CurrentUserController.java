@@ -1,5 +1,6 @@
 package com.payment.pay.mch.ctrl.anon;
 
+import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -8,6 +9,7 @@ import com.pay.pay.core.cache.ITokenService;
 import com.pay.pay.core.constants.CS;
 import com.pay.pay.core.entity.SysEntitlement;
 import com.pay.pay.core.entity.SysUser;
+import com.pay.pay.core.exeception.BizException;
 import com.pay.pay.core.model.ApiRes;
 import com.pay.pay.core.model.security.JeeUserDetails;
 import com.pay.pay.core.utils.TreeDataBuilder;
@@ -112,5 +114,40 @@ public class CurrentUserController extends  CommonCtrl {
         return ApiRes.ok();
     }
 
+    /**
+     * mdifyPwd
+     * @return
+     * @throws BizException
+     */
+    @MethodLog
+    @RequestMapping(value = "modifyPwd",method = RequestMethod.PUT)
+    public ApiRes modifyPwd() throws BizException{
+
+        Long opSysUserId = getValLongRequired("recordId");   //操作员ID
+
+        // 更改密码，验证用户当前信息
+        String currentUserPwd = Base64.decodeStr(getValStringRequired("originalPwd"));
+        // 验证当前密码是否正确
+        if (sysUserAuthService.validateCurrentUserPwd(currentUserPwd)) {
+            throw new BizException("密码验证失败！");
+        }
+        String opUserPwd = Base64.decodeStr(getValStringRequired("confirmPwd"));
+// 验证原密码与新密码是否相同
+        if (opUserPwd.equals(currentUserPwd)) {
+            throw new BizException("新密码与原密码不能相同！");
+        }
+
+        sysUserAuthService.resetAuthInfo(opSysUserId, null, null, opUserPwd, CS.SYS_TYPE.MCH);
+        //调用登出接口
+        return logout();
+    }
+    /** 登出 */
+    @MethodLog(remark = "退出")
+    @RequestMapping(value="logout", method = RequestMethod.POST)
+    public ApiRes logout() throws BizException{
+
+        ITokenService.removeIToken(getCurrentUser().getCacheKey(), getCurrentUser().getSysUser().getSysUserId());
+        return ApiRes.ok();
+    }
 
     }
