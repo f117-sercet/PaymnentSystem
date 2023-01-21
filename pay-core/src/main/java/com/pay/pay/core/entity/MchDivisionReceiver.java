@@ -1,14 +1,16 @@
 package com.pay.pay.core.entity;
 
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>
@@ -25,6 +27,10 @@ import lombok.experimental.Accessors;
 public class MchDivisionReceiver implements Serializable {
 
     private static final long serialVersionUID=1L;
+
+    public static final LambdaQueryWrapper<MchDivisionReceiver> gw(){
+        return new LambdaQueryWrapper<>();
+    }
 
     /**
      * 分账接收者ID
