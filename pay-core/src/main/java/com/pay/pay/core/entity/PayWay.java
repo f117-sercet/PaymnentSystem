@@ -1,5 +1,6 @@
 package com.pay.pay.core.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.pay.pay.core.model.BaseModel;
@@ -32,6 +33,7 @@ public class PayWay extends BaseModel implements Serializable {
     /**
      * 支付方式代码  例如： wxpay_jsapi
      */
+    @TableId
     private String wayCode;
 
     /**
