@@ -47,8 +47,10 @@ public class PayWayController extends CommonCtrl {
 	PayOrderService payOrderService;
 
 	/**
+	 * @Author: 段世超
 	 * @Description: list
-	*/
+	 * @Date: 15:52 2021/4/27
+	 */
 	@PreAuthorize("hasAuthority('ENT_PAY_ORDER_SEARCH_PAY_WAY')")
 	@GetMapping
 	public ApiRes list() {
@@ -68,5 +70,6 @@ public class PayWayController extends CommonCtrl {
 
 		return ApiRes.page(pages);
 	}
+
 
 }
