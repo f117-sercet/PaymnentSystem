@@ -148,7 +148,7 @@ public class WsChannelUserIdServer {
                 }
             }
         } catch (Exception e) {
-            logger.info("推送消息时异常，appId={}", appId, e);
+            logger.info("推送消息时异常，appId={}", appId, e);//&&&&&&
         }
     }
 
