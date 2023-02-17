@@ -19,10 +19,14 @@ public class ApplicationContextKit implements ServletContextAware, InitializingB
     @Override
     public void afterPropertiesSet() throws Exception {
 
+
+
     }
 
     @Override
     public void setServletContext(ServletContext servletContext) {
+
+        this.servletContext = servletContext;
 
     }
 }
