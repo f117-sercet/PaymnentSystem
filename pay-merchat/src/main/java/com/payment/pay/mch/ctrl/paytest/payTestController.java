@@ -15,7 +15,7 @@ import com.pay.pay.core.model.DBApplicationConfig;
 import com.pay.pay.service.impl.MchAppService;
 import com.pay.pay.service.impl.MchPayPassageService;
 import com.pay.pay.service.impl.SysConfigService;
-import com.payment.pay.mch.ctrl.anon.CommonCtrl;
+import com.payment.pay.mch.ctrl.CommonCtrl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

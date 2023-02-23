@@ -1,5 +1,6 @@
 package com.payment.pay.mch.ctrl.anon;
 
+import com.payment.pay.mch.ctrl.CommonCtrl;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

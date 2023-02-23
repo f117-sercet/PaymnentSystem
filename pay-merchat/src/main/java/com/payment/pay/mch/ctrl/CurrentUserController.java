@@ -1,4 +1,4 @@
-package com.payment.pay.mch.ctrl.anon;
+package com.payment.pay.mch.ctrl;
 
 import cn.hutool.core.codec.Base64;
 import com.alibaba.fastjson.JSON;
@@ -34,7 +34,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api/current")
-public class CurrentUserController extends  CommonCtrl {
+public class CurrentUserController extends CommonCtrl {
 
     @Resource
     private SysEntitlementService sysEntitlementService;

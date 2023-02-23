@@ -20,7 +20,7 @@ import com.pay.pay.service.impl.MchAppService;
 import com.pay.pay.service.impl.MchDivisionReceiverGroupService;
 import com.pay.pay.service.impl.MchDivisionReceiverService;
 import com.pay.pay.service.impl.SysConfigService;
-import com.payment.pay.mch.ctrl.anon.CommonCtrl;
+import com.payment.pay.mch.ctrl.CommonCtrl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;

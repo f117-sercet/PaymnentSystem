@@ -22,7 +22,7 @@ import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.entity.TransferOrder;
 import com.pay.pay.core.model.ApiRes;
 import com.pay.pay.service.impl.TransferOrderService;
-import com.payment.pay.mch.ctrl.anon.CommonCtrl;
+import com.payment.pay.mch.ctrl.CommonCtrl;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

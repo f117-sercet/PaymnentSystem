@@ -1,4 +1,4 @@
-package com.payment.pay.mch.ctrl.anon;
+package com.payment.pay.mch.ctrl;
 
 import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.constants.CS;
