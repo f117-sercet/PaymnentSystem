@@ -55,10 +55,10 @@ public class PayInterfaceConfigService extends ServiceImpl<PayInterfaceConfigMap
      *
      * @param infoType
      * @param infoId
-     * @param isvNo
+     * @param
      * @return
      */
-    public List<PayInterfaceDefine> selectAllPayIfConfigListByIsvNo(Byte infoType, String infoId, String isvNo) {
+    public List<PayInterfaceDefine> selectAllPayIfConfigListByIsvNo(Byte infoType, String infoId) {
 
         // 支付定义列表
         LambdaQueryWrapper<PayInterfaceDefine> queryWrapper = PayInterfaceDefine.gw();

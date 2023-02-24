@@ -1,8 +1,7 @@
-package com.pay.mgr.ctrl.isv;
+package com.payment.pay.mch.ctrl.isv;
 
 import com.pay.components.mq.model.ResetIsvMchAppInfoConfigMQ;
 import com.pay.components.mq.vender.IMQSender;
-import com.pay.mgr.ctrl.common.CommonCtrl;
 import com.pay.pay.core.aop.MethodLog;
 import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.constants.CS;
@@ -12,6 +11,7 @@ import com.pay.pay.core.model.ApiRes;
 import com.pay.pay.core.model.params.IsvParams;
 import com.pay.pay.core.utils.StringKit;
 import com.pay.pay.service.impl.PayInterfaceConfigService;
+import com.payment.pay.mch.ctrl.CommonCtrl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ import java.util.List;
  * Description： 服务商支付接口管理类
  *
  * @author: 段世超
- * @aate: Created in 2022/9/30 18:44
+ * @aate: Created in 2023/2/24 10:26
  */
 @RestController
 @RequestMapping("/api/isv/payConfigs")
@@ -35,20 +35,19 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
     @Resource
     private IMQSender mqSender;
 
-
-    /**
-     * @Author: 段世超
-     * @Description: 查询服务商支付接口配置列表
-     * @Date: 16:45 2021/4/27
-     */
-    @PreAuthorize("hasAuthority('ENT_ISV_PAY_CONFIG_LIST')")
-    @GetMapping
     public ApiRes list() {
 
-        List<PayInterfaceDefine> list = payInterfaceConfigService.selectAllPayIfConfigListByIsvNo(CS.INFO_TYPE_ISV,getValStringRequired("isvNo"));
+        List<PayInterfaceDefine> list = payInterfaceConfigService.selectAllPayIfConfigListByIsvNo(CS.INFO_TYPE_ISV, getValStringRequired("isvNo"));
         return ApiRes.ok(list);
     }
 
+    /**
+     * 根据服务商号码，接口类型，获取商户参数配置
+     *
+     * @param isvNo
+     * @param ifCode
+     * @return
+     */
     @PreAuthorize("hasAuthority('ENT_ISV_PAY_CONFIG_VIEW')")
     @GetMapping("/{isvNo}/{ifCode}")
     public ApiRes getByMchNo(@PathVariable(value = "isvNo") String isvNo, @PathVariable(value = "ifCode") String ifCode) {
@@ -66,10 +65,12 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
             }
         }
         return ApiRes.ok(payInterfaceConfig);
+
     }
 
-    /***
+    /**
      * 服务商支付接口参数配置
+     *
      * @return
      */
     @PreAuthorize("hasAuthority('ENT_ISV_PAY_CONFIG_ADD')")
@@ -86,24 +87,26 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
         // 存入真实费率
         if (payInterfaceConfig.getIfRate() != null) {
             payInterfaceConfig.setIfRate(payInterfaceConfig.getIfRate().divide(new BigDecimal("100"), 6, BigDecimal.ROUND_HALF_UP));
+
         }
 
         //添加更新者信息
-        Long userId = getCurrentUser().getSysUser().getSysUserId();
+        Long sysUserId = getCurrentUser().getSysUser().getSysUserId();
         String realName = getCurrentUser().getSysUser().getRealname();
-        payInterfaceConfig.setUpdatedUid(userId);
+        payInterfaceConfig.setUpdatedUid(sysUserId);
         payInterfaceConfig.setUpdatedBy(realName);
 
         //根据 服务商号、接口类型 获取商户参数配置
         PayInterfaceConfig dbRecoed = payInterfaceConfigService.getByInfoIdAndIfCode(CS.INFO_TYPE_ISV, infoId, ifCode);
+
         //若配置存在，为saveOrUpdate添加ID，第一次配置添加创建者
         if (dbRecoed != null) {
             payInterfaceConfig.setId(dbRecoed.getId());
 
             // 合并支付参数
             payInterfaceConfig.setIfParams(StringKit.marge(dbRecoed.getIfParams(), payInterfaceConfig.getIfParams()));
-        }else {
-            payInterfaceConfig.setCreatedUid(userId);
+        } else {
+            payInterfaceConfig.setCreatedUid(sysUserId);
             payInterfaceConfig.setCreatedBy(realName);
         }
 
@@ -112,10 +115,8 @@ public class IsvPayInterfaceConfigController extends CommonCtrl {
             return ApiRes.fail(ApiCodeEnum.SYSTEM_ERROR, "配置失败");
         }
 
-        // 推送mq到目前节点进行更新数据
+        // 推送mq到目前节点进行数据更新
         mqSender.send(ResetIsvMchAppInfoConfigMQ.build(ResetIsvMchAppInfoConfigMQ.RESET_TYPE_ISV_INFO, infoId, null, null));
-
         return ApiRes.ok();
     }
-
 }
