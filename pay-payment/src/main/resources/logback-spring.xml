@@ -5,13 +5,13 @@
     <springProperty scope="context" name="currentLoggerFilePath" source="logging.path"/>
 
     <!-- 主日志级别配置  -->
-    <springProperty scope="context" name="currentRootLevel" source="logging.payment.pay"/>
+    <springProperty scope="context" name="currentRootLevel" source="logging.level.root"/>
 
     <!-- 项目配置， 如修改包名，请搜索并全部替换掉  -->
     <springProperty scope="context" name="currentProjectLevel" source="logging.level.com.payment.pay"/>
 
     <!-- 日志文件名称  logback属性 -->
-    <property name="currentLoggerFileName" value="mch" />
+    <property name="currentLoggerFileName" value="pay" />
     <!-- 日志格式, 参考：https://logback.qos.ch/manual/layouts.html -->
     <property name="currentLoggerPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%logger{15}] - %msg%n" />
 
