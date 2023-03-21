@@ -13,28 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pay.payment.util;
+package com.pay.payment.channel;
 
-
-import com.pay.payment.rqrs.AbstractRS;
+import com.alibaba.fastjson.JSONObject;
 
 /*
-* api响应结果构造器
-*
-* @author terrfly
-* @site https://www.jeequan.com
-* @date 2021/6/8 17:45
+* @Description: 301方式获取渠道侧用户ID， 如微信openId 支付宝的userId等
 */
-public class ApiResBuilder {
+public interface IChannelUserService {
 
-    /** 构建自定义响应对象, 默认响应成功 **/
-    public static <T extends AbstractRS> T buildSuccess(Class<? extends AbstractRS> T){
+    /** 获取到接口code **/
+    String getIfCode();
 
-        try {
-            T result = (T)T.newInstance();
-            return result;
+    /** 获取重定向地址 **/
+    String buildUserRedirectUrl(String callbackUrlEncode, MchAppConfigContext mchAppConfigContext);
 
-        } catch (Exception e) { return null; }
-    }
+    /** 获取渠道用户ID **/
+    String getChannelUserId(JSONObject reqParams, MchAppConfigContext mchAppConfigContext);
 
 }

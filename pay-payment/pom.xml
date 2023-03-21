@@ -85,6 +85,12 @@
                 <artifactId>spring-boot-starter-freemarker</artifactId>
             </dependency>
 
+            <!-- 生成二维码工具包 zxing -->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+            </dependency>
+
             <!-- 添加redis支持 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -100,6 +106,8 @@
                 <groupId>jakarta.validation</groupId>
                 <artifactId>jakarta.validation-api</artifactId>
             </dependency>
+
+
 
         </dependencies>
 

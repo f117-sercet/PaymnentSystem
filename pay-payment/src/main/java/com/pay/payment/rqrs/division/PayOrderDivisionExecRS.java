@@ -13,28 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pay.payment.util;
+package com.pay.payment.rqrs.division;
 
+import com.jeequan.jeepay.pay.rqrs.AbstractRS;
+import lombok.Data;
 
-import com.pay.payment.rqrs.AbstractRS;
-
-/*
-* api响应结果构造器
+/**
+* 发起订单分账 响应参数
 *
 * @author terrfly
 * @site https://www.jeequan.com
-* @date 2021/6/8 17:45
+* @date 2021/8/26 17:20
 */
-public class ApiResBuilder {
+@Data
+public class PayOrderDivisionExecRS extends AbstractRS {
 
-    /** 构建自定义响应对象, 默认响应成功 **/
-    public static <T extends AbstractRS> T buildSuccess(Class<? extends AbstractRS> T){
+    /**
+     * 分账状态 1-分账成功, 2-分账失败
+     */
+    private Byte state;
 
-        try {
-            T result = (T)T.newInstance();
-            return result;
+    /**
+     * 上游分账批次号
+     */
+    private String channelBatchOrderId;
 
-        } catch (Exception e) { return null; }
-    }
+    /**
+     * 支付渠道错误码
+     */
+    private String errCode;
+
+    /**
+     * 支付渠道错误信息
+     */
+    private String errMsg;
+
 
 }

@@ -13,28 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pay.payment.util;
+package com.pay.payment.channel;
 
 
-import com.pay.payment.rqrs.AbstractRS;
+import com.pay.pay.core.entity.PayOrder;
 
-/*
-* api响应结果构造器
+/**
+* 查单（渠道侧）接口定义
 *
 * @author terrfly
-* @site https://www.jeequan.com
-* @date 2021/6/8 17:45
+* @date 2021/5/19 15:16
 */
-public class ApiResBuilder {
+public interface IPayOrderQueryService {
 
-    /** 构建自定义响应对象, 默认响应成功 **/
-    public static <T extends AbstractRS> T buildSuccess(Class<? extends AbstractRS> T){
+    /** 获取到接口code **/
+    String getIfCode();
 
-        try {
-            T result = (T)T.newInstance();
-            return result;
-
-        } catch (Exception e) { return null; }
-    }
+    /** 查询订单 **/
+    ChannelRetMsg query(PayOrder payOrder, MchAppConfigContext mchAppConfigContext) throws Exception;
 
 }

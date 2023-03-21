@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pay.payment.util;
+package com.pay.payment.channel;
 
 
+import com.pay.pay.core.entity.PayOrder;
 import com.pay.payment.rqrs.AbstractRS;
 
 /*
-* api响应结果构造器
-*
-* @author terrfly
-* @site https://www.jeequan.com
-* @date 2021/6/8 17:45
+* 调起上游渠道侧支付接口
+* @date 2021/5/8 15:13
 */
-public class ApiResBuilder {
+public interface IPaymentService {
 
-    /** 构建自定义响应对象, 默认响应成功 **/
-    public static <T extends AbstractRS> T buildSuccess(Class<? extends AbstractRS> T){
+    /** 获取到接口code **/
+    String getIfCode();
 
-        try {
-            T result = (T)T.newInstance();
-            return result;
+    /** 是否支持该支付方式 */
+    boolean isSupport(String wayCode);
 
-        } catch (Exception e) { return null; }
-    }
+    /** 前置检查如参数等信息是否符合要求， 返回错误信息或直接抛出异常即可  */
+    String preCheck(UnifiedOrderRQ bizRQ, PayOrder payOrder);
+
+    /** 调起支付接口，并响应数据；  内部处理普通商户和服务商模式  **/
+    AbstractRS pay(UnifiedOrderRQ bizRQ, PayOrder payOrder, MchAppConfigContext mchAppConfigContext) throws Exception;
 
 }

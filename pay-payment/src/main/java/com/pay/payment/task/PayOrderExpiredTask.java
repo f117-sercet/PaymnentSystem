@@ -13,28 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pay.payment.util;
+package com.pay.payment.task;
 
-
-import com.pay.payment.rqrs.AbstractRS;
+import com.pay.pay.service.impl.PayOrderService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 /*
-* api响应结果构造器
+* 订单过期定时任务
 *
 * @author terrfly
 * @site https://www.jeequan.com
-* @date 2021/6/8 17:45
+* @date 2021/6/8 17:47
 */
-public class ApiResBuilder {
+@Slf4j
+@Component
+public class PayOrderExpiredTask {
 
-    /** 构建自定义响应对象, 默认响应成功 **/
-    public static <T extends AbstractRS> T buildSuccess(Class<? extends AbstractRS> T){
+    @Autowired private PayOrderService payOrderService;
 
-        try {
-            T result = (T)T.newInstance();
-            return result;
+    @Scheduled(cron="0 0/1 * * * ?") // 每分钟执行一次
+    public void start() {
 
-        } catch (Exception e) { return null; }
+        int updateCount = payOrderService.updateOrderExpired();
+        log.info("处理订单超时{}条.", updateCount);
     }
+
 
 }
