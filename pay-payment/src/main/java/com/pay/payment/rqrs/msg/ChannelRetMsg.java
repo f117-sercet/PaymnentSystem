@@ -63,7 +63,7 @@ public class ChannelRetMsg implements Serializable {
     }
 
     public static ChannelRetMsg confirmSuccess(String channelOrderId){
-        return  new ChannelRetMsg(ChannelState.CONFIRM_SUCCESS,channelOrderId,null,null)
+        return  new ChannelRetMsg(ChannelState.CONFIRM_SUCCESS,channelOrderId,null,null);
     }
 
     /** 明确失败 **/
