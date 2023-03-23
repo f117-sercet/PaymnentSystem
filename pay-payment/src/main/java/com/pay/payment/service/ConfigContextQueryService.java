@@ -1,8 +1,10 @@
 package com.pay.payment.service;
 
+import com.pay.pay.core.entity.MchApp;
 import com.pay.pay.service.impl.MchAppService;
 import com.pay.pay.service.impl.MchInfoService;
 import com.pay.pay.service.impl.PayInterfaceConfigService;
+import com.pay.pay.service.impl.SysConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +28,15 @@ public class ConfigContextQueryService {
     private MchAppService mchAppService;
     @Resource
     private PayInterfaceConfigService payInterfaceConfigService;
+
+    private boolean isCache(){return SysConfigService.IS_USE_CACHE;
+    }
+
+    public MchApp queryMchApp(String mchNo,String mchAppId){
+
+        if (isCache()) {
+             return configContextService.getMchAppConfigContext(mchNo, mchAppId).getMchApp();
+        }
+
+    }
 }
