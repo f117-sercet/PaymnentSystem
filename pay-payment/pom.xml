@@ -85,6 +85,18 @@
                 <artifactId>spring-boot-starter-freemarker</artifactId>
             </dependency>
 
+
+            <!--wx_pay  https://github.com/wechat-group/WxJava  -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-pay</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-mp</artifactId>
+            </dependency>
+
             <!-- 生成二维码工具包 zxing -->
             <dependency>
                 <groupId>com.google.zxing</groupId>
