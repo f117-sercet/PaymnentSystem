@@ -3,6 +3,7 @@ package com.pay.payment.model;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.pay.pay.core.entity.PayOrder;
+import com.pay.pay.core.model.params.pppay.PpPayNormalMchParams;
 import com.pay.payment.rqrs.msg.ChannelRetMsg;
 import com.paypal.core.PayPalEnvironment;
 import com.paypal.core.PayPalHttpClient;
@@ -164,5 +165,19 @@ public class PaypalWrapper {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.TEXT_HTML);
         return new ResponseEntity(text, httpHeaders, HttpStatus.OK);
+    }
+    public  static PaypalWrapper buildPaypalWrapper(PpPayNormalMchParams ppPayNormalMchParams){
+
+        PaypalWrapper paypalWrapper = new PaypalWrapper();
+        PayPalEnvironment environment = new PayPalEnvironment.Live(ppPayNormalMchParams.getClientId(), ppPayNormalMchParams.getSecret());
+        if (ppPayNormalMchParams.getSandbox() ==1) {
+            environment = new PayPalEnvironment.Sandbox(ppPayNormalMchParams.getClientId(), ppPayNormalMchParams.getSecret());
+        }
+        paypalWrapper.setEnvironment(environment);
+        paypalWrapper.setClient(new PayPalHttpClient(environment));
+        paypalWrapper.setNotifyWebhook(ppPayNormalMchParams.getNotifyWebhook());
+        paypalWrapper.setRefundWebhook(ppPayNormalMchParams.getRefundWebhook());
+        return paypalWrapper;
+
     }
 }

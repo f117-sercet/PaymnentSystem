@@ -147,6 +147,7 @@ public class CS {
         String ALI_PC = "ALI_PC";  //支付宝 电脑网站支付
         String ALI_WAP = "ALI_WAP";  //支付宝 wap支付
         String ALI_QR = "ALI_QR";  //支付宝 二维码付款
+        String ALI_LITE = "ALI_LITE";  //支付宝小程序支付
 
         String YSF_BAR = "YSF_BAR";  //云闪付条码支付
         String YSF_JSAPI = "YSF_JSAPI";  //云闪付服务窗支付
@@ -166,6 +167,7 @@ public class CS {
         String FORM = "form";  //表单提交
         String WX_APP = "wxapp";  //微信app参数
         String ALI_APP = "aliapp";  //支付宝app参数
+        String ALI_LITE = "ALI_LITE";  //支付宝小程序支付
         String YSF_APP = "ysfapp";  //云闪付app参数
         String CODE_URL = "codeUrl";  //二维码URL
         String CODE_IMG_URL = "codeImgUrl";  //二维码图片显示URL
