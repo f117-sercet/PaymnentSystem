@@ -17,6 +17,8 @@ package com.pay.payment.channel;
 
 
 import com.pay.pay.core.entity.PayOrder;
+import com.pay.payment.model.MchAppConfigContext;
+import com.pay.payment.rqrs.msg.ChannelRetMsg;
 
 /**
 * 查单（渠道侧）接口定义
