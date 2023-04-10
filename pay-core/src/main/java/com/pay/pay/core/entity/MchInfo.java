@@ -1,5 +1,7 @@
 package com.pay.pay.core.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.pay.pay.core.model.BaseModel;
@@ -24,14 +26,21 @@ import java.util.Date;
 @TableName("t_mch_info")
 public class MchInfo extends BaseModel implements Serializable {
 
+    //gw
     public static final LambdaQueryWrapper<MchInfo> gw(){
         return new LambdaQueryWrapper<>();
     }
+
     private static final long serialVersionUID=1L;
+
+    public static final byte TYPE_NORMAL = 1; //商户类型： 1-普通商户
+    public static final byte TYPE_ISVSUB = 2; //商户类型： 2-特约商户
+
 
     /**
      * 商户号
      */
+    @TableId(value = "mch_no", type = IdType.INPUT)
     private String mchNo;
 
     /**

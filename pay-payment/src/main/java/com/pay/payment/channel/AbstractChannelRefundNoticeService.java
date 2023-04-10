@@ -1,8 +1,8 @@
 package com.pay.payment.channel;
 
 import com.pay.pay.core.beans.RequestKitBean;
+import com.pay.payment.service.ConfigContextQueryService;
 import com.pay.payment.util.ChannelCertConfigKitBean;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 
