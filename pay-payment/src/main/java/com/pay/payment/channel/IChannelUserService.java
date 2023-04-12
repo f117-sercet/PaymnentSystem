@@ -16,6 +16,7 @@
 package com.pay.payment.channel;
 
 import com.alibaba.fastjson.JSONObject;
+import com.pay.payment.model.MchAppConfigContext;
 
 /*
 * @Description: 301方式获取渠道侧用户ID， 如微信openId 支付宝的userId等
