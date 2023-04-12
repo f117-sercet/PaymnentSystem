@@ -2,6 +2,7 @@ package com.pay.payment.rqrs.division;
 
 import com.pay.payment.rqrs.AbstractMchAppRQ;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

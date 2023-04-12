@@ -15,7 +15,7 @@
  */
 package com.pay.payment.rqrs.division;
 
-import com.jeequan.jeepay.pay.rqrs.AbstractMchAppRQ;
+import com.pay.payment.rqrs.AbstractMchAppRQ;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

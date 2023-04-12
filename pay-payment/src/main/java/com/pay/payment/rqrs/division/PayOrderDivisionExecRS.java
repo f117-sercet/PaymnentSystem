@@ -15,7 +15,7 @@
  */
 package com.pay.payment.rqrs.division;
 
-import com.jeequan.jeepay.pay.rqrs.AbstractRS;
+import com.pay.payment.rqrs.AbstractRS;
 import lombok.Data;
 
 /**
