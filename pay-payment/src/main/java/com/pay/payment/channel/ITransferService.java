@@ -16,6 +16,9 @@
 package com.pay.payment.channel;
 
 import com.pay.pay.core.entity.TransferOrder;
+import com.pay.payment.model.MchAppConfigContext;
+import com.pay.payment.rqrs.msg.ChannelRetMsg;
+import com.pay.payment.rqrs.transfer.TransferOrderRQ;
 
 /**
 * 转账接口
