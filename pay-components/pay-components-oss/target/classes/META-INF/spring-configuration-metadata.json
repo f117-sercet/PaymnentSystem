@@ -1,0 +1,71 @@
+{
+  "groups": [
+    {
+      "name": "isys",
+      "type": "com.pay.components.oss.config.OssYmlConfig",
+      "sourceType": "com.pay.components.oss.config.OssYmlConfig"
+    },
+    {
+      "name": "isys.oss",
+      "type": "com.pay.components.oss.config.OssYmlConfig$Oss",
+      "sourceType": "com.pay.components.oss.config.OssYmlConfig"
+    },
+    {
+      "name": "isys.oss.aliyun-oss",
+      "type": "com.pay.components.oss.config.AliyunOssYmlConfig",
+      "sourceType": "com.pay.components.oss.config.AliyunOssYmlConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "isys.oss.aliyun-oss.access-key-id",
+      "type": "java.lang.String",
+      "sourceType": "com.pay.components.oss.config.AliyunOssYmlConfig"
+    },
+    {
+      "name": "isys.oss.aliyun-oss.access-key-secret",
+      "type": "java.lang.String",
+      "sourceType": "com.pay.components.oss.config.AliyunOssYmlConfig"
+    },
+    {
+      "name": "isys.oss.aliyun-oss.endpoint",
+      "type": "java.lang.String",
+      "sourceType": "com.pay.components.oss.config.AliyunOssYmlConfig"
+    },
+    {
+      "name": "isys.oss.aliyun-oss.private-bucket-name",
+      "type": "java.lang.String",
+      "sourceType": "com.pay.components.oss.config.AliyunOssYmlConfig"
+    },
+    {
+      "name": "isys.oss.aliyun-oss.public-bucket-name",
+      "type": "java.lang.String",
+      "sourceType": "com.pay.components.oss.config.AliyunOssYmlConfig"
+    },
+    {
+      "name": "isys.oss.file-private-path",
+      "type": "java.lang.String",
+      "description": "私有读取块",
+      "sourceType": "com.pay.components.oss.config.OssYmlConfig$Oss"
+    },
+    {
+      "name": "isys.oss.file-public-path",
+      "type": "java.lang.String",
+      "description": "公共读取块",
+      "sourceType": "com.pay.components.oss.config.OssYmlConfig$Oss"
+    },
+    {
+      "name": "isys.oss.file-root-path",
+      "type": "java.lang.String",
+      "description": "存储根路径",
+      "sourceType": "com.pay.components.oss.config.OssYmlConfig$Oss"
+    },
+    {
+      "name": "isys.oss.service-type",
+      "type": "java.lang.String",
+      "description": "oss类型",
+      "sourceType": "com.pay.components.oss.config.OssYmlConfig$Oss"
+    }
+  ],
+  "hints": []
+}
