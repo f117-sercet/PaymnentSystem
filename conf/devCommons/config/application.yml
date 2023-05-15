@@ -1,16 +1,7 @@
 #################################
-# spring boot支持外部application.yml  读取优先级为：
-#   1、file:./config/（当前目录下的config文件夹）
-#   2、file:./（当前目录）
-#   3、classpath:/config/（classpath下的config目录）
-#   4、classpath:/（classpath根目录）
-#   建议： 如果是jar则放置到与jar相同的目录下，  如果解压文件放置到classpath: config目录下。 (需要将文件重命名为 application.yml )
-#
-#   该yml文件只配置与环境相关的参数， 其他配置读取项目下的配置项
-#
+# 开发环境通用配置文件(每个项目通用配置)
 #################################
 server:
-  port: 9217 #设置端口
   servlet:
     context-path: / #设置应用的目录.  前缀需要带/, 无需设置后缀, 示例 【 /xxx 】 or 【 / 】
 spring:
@@ -30,7 +21,7 @@ spring:
       number_format: '#' #数字格式进行原样显示，不加格式化字符例如  100,00
   datasource:
     # yml填写url连接串， 无需将&符号进行转义
-    url: jdbc:mysql://localhost:3306/paydb?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/paydb?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123123
     druid:
@@ -55,15 +46,14 @@ spring:
   cache:
     type: redis
   redis:
-    host: localhost
+    host: 127.0.0.1
     port: 6379
-    database: 1    #1库：运营平台  #2库：商户系统 #3库：支付网关
     timeout: 1000
     password:
 
 # #activeMQ配置 ( 注意： activeMQ配置项需在spring的下级 )
   activemq:
-    broker-url: failover:(tcp://172.20.0.11:61616?wireFormat.maxInactivityDuration=0)  #连接地址
+    broker-url: failover:(tcp://127.0.0.1:61616?wireFormat.maxInactivityDuration=0)  #连接地址
     in-memory: false # Jeepay项目不可使用内存模式， 需要连接多个消费者。
     user: admin # activeMQ默认无需账密认证。 打开认证：activemq.xml添加simpleAuthenticationPlugin标签，账密在credentials.properties文件。
     password: admin
@@ -74,18 +64,17 @@ spring:
 #
 #  #rabbitmq配置  ( 注意： rabbitmq配置项需在spring的下级 )
 #  rabbitmq:
-#    addresses: 172.20.0.11:5672
-#    username: admin
-#    password: admin
+#    addresses: 127.0.0.1:5672
+#    username: guest
+#    password: guest
 #    dynamic: true
-#    virtual-host: jeepay
-
+#    virtual-host: /
 
 ## rocketmq配置 ( 注意：rocketmq配置项请放置到根目录， 不是spring的二级配置！  )
-rocketmq:
-  name-server: 172.20.0.11:9876
-  producer:
-    group: JEEPAY-GROUP
+#rocketmq:
+#  name-server: 127.0.0.1:9876
+#  producer:
+#    group: JEEPAY-GROUP
 
 ## 阿里云rocketmq配置 ( 注意：aliyun-rocketmq配置项请放置到根目录， 不是spring的二级配置！需要阿里云开通rocketMQ产品，创建Group和Topic  )
 #aliyun-rocketmq:
@@ -105,14 +94,11 @@ logging:
 
 #系统业务参数
 isys:
-
-  jwt-secret: t7w3P8X6472qWc3u #生成jwt的秘钥。 要求每个系统有单独的秘钥管理机制。
-
   #是否允许跨域请求 [生产环境建议关闭， 若api与前端项目没有在同一个域名下时，应开启此配置或在nginx统一配置允许跨域]
   allow-cors: true
 
   #是否内存缓存配置信息: true表示开启如支付网关地址/商户应用配置/服务商配置等， 开启后需检查MQ的广播模式是否正常； false表示直接查询DB.
-  cache-config: false
+  cache-config: true
 
   oss:
     file-root-path: /home/jeepay/upload #存储根路径 ( 无需以‘/’结尾 )
