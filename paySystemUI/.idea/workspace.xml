@@ -20,9 +20,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "F:/git/Repository/gitHub/PaymnentSystem/paySystemUI/paySystem-ui-cashier",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
@@ -38,6 +40,7 @@
       <option name="presentableId" value="Default" />
       <updated>1682245507821</updated>
       <workItem from="1682245508923" duration="62000" />
+      <workItem from="1684230282313" duration="295000" />
     </task>
     <task id="LOCAL-00001" summary="项目构建">
       <created>1682245522853</created>

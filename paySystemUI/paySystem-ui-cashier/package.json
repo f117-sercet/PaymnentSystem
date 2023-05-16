@@ -9,9 +9,18 @@
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
-    "build": "node build/build.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
+    "axios": "^1.4.0",
+    "core-js": "^3.30.2",
+    "element-ui": "^2.15.13",
+    "lib-flexible": "^0.3.2",
+    "postcss-px2rem": "^0.3.0",
+    "px2rem-loader": "^0.1.9",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
