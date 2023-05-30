@@ -13,3 +13,56 @@ export function getRedirectUrl () {
     data: { wayCode: wayCode.getPayWay().wayCode, token: config.cacheToken }
   })
 }
+
+/**获取url**/
+export  function getChannelUserId(redirectData){
+  return  request.request({
+
+    url:'/api/cashier/channelUserId',
+    method:'POST',
+    data: Object.assign({wayCode:wayCode.getPayWay().wayCode,token:config.cacheToken},redirectData)
+
+  })
+}
+
+/***调起支付接口，获取支付数据包***/
+
+export function getPayPackage(amount){
+  return request.request({
+
+    url:'/api/cashier/pay',
+    method:'POST',
+    data:{
+      wayCode:wayCode.getPayWay().wayCode,
+      token:config.cacheToken,
+      amount:amount,
+      channelUserId:channelUserIdUtil.getChannelUserId()
+    }
+
+  })
+}
+
+/**调取支付接口，获取订货单信息***/
+export function getPayOrderInfo(){
+
+  return request.request({
+
+    url:'/api/cashier/payOrderInfo',
+    method:'POST',
+    data:{
+      token:config.cacheToken
+    }
+
+  })
+}
+
+/** 取消订单 **/
+export function cancelPay () {
+  return request.request({
+    url: '/api/cashier/cancelPay',
+    method: 'POST',
+    data: {
+      token: config.cacheToken
+    }
+  })
+}

@@ -18,7 +18,7 @@ const payWay = {
 export default {
   errorPageRouteName: errorPageRouteName,
   passGuardRouteList: passGuardRouteList,
-  urlTokenName: "jeepayToken", //URL传递的token名称
+  urlTokenName: "paySystemToken", //URL传递的token名称
   payWay: payWay,
   cacheToken: ""
 }
