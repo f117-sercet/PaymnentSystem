@@ -1,111 +1,200 @@
-
+<!--
+ * @Author: your name
+ * @Date: 2020-12-23 10:46:37
+ * @LastEditors: 王会峰
+ * @LastEditTime: 2020-12-30 11:02:25
+ * @FilePath: \pay\src\components\keyboard\keyboard.vue
+ * @SendWord: 永无BUG vite⚡
+-->
 
 <template>
+  <div class="keyboard">
+    <div class="keyboard-top">
+      <div class="triangle-topleft-k"></div>
+      <div class="keyboard-tite">@小新支付</div>
+      <div class="triangle-topleft-k" @click="concealSateFn">
+        <div
+          class="triangle-topleft"
+          :style="
+            concealSate ? '' : 'transform:rotate(-135deg);margin-top: 12px;'
+          "
+        ></div>
+      </div>
+    </div>
+    <div
+      class="keyboard-main"
+      v-show="concealSate"
+      style="transition: all 1s ease"
+    >
+      <div
+        v-for="(item, index) in numberList"
+        :key="index"
+        class="keyborad-key"
+      >
+        <!--   @click="onKeyboard(it, $event)" -->
+        <div
+          ref="number"
+          class="number"
+          v-for="(it, ind) in item"
+          :key="ind"
+          @touchstart.prevent="goTouchstart(it, $event)"
+          @touchend.prevent="goTouchend(it, $event)"
+        >
+          {{ it != "del" ? it : "" }}
+          <template class="" v-if="it == 'del'">
+            <!-- <div class="jiao"></div>
+            <div class="juxing"></div> -->
+            <img src="../../assets/icon/del.png" alt="" />
+          </template>
+        </div>
+      </div>
+      <div class="keyborad-key">
+        <div
+          class="number"
+          @touchstart.prevent="goTouchstart('dot', $event)"
+          @touchend.prevent="goTouchend('dot', $event)"
+        >
+          <div class="dot"></div>
+        </div>
+        <div
+          class="number zero"
+          @touchstart.prevent="goTouchstart('zero', $event)"
+          @touchend.prevent="goTouchend('zero', $event)"
+        >
+          0
+        </div>
+      </div>
+    </div>
 
+    <div
+      :class="paymentClassFn"
+      :style="'background:' + typeColor + ';'"
+      @click="payment"
+    >
+      <div>付款</div>
+    </div>
+  </div>
 </template>
 
 <script>
-
 export default {
-  name:"keyboard",
-  data(){
+  name: "Keyboard",
+  data() {
     return {
-      timeOutEvent:0, // 记录触摸时长
-      tiemIntervalEvent:0,
-      concealStateC:true,
-      numberList:[
-
+      timeOutEvent: 0, //记录触摸时长
+      tiemIntervalEvent: 0,
+      concealSateC: true,
+      numberList: [
         [1, 2, 3, "del"],
         [4, 5, 6],
         [7, 8, 9],
       ],
     };
   },
-  computed:{
-    paymentClassFn(){
-      // 'this' 指向vm实例
+  computed: {
+    paymentClassFn() {
+      // `this` 指向 vm 实例
       let className1 = this.concealSate ? "payment" : "paymentConceal";
       let className2 = this.money != -1 && this.money != "" ? "" : "opacityS";
-      return className11 + "" +className2;
+      return className1 + " " + className2;
     },
   },
   props: {
     typeColor: {
       type: String,
-      default: "#07c160"
+      default: "#07c160",
     },
     money: {
-
       type: String | Number,
       default: -1,
     },
-    concealState: {
-
+    concealSate: {
       type: Boolean,
-      default: true
+      default: true,
     },
   },
   mounted() {
-
-    this.concealStateC = this.concealState;
+    this.concealSateC = this.concealSate;
   },
-  methods:{
-  f() {},
-  payment(){
-    this.$emit("payment");
-  },
+  methods: {
+    f() {},
+    payment() {
+      this.$emit("payment");
+    },
     concealSateFn() {
       //   this.concealSateC = !this.concealSateC;
       this.$emit("conceal");
     },
-    onKeyboard(item,$event){
+    onKeyboard(item, $event) {
       /* setTimeout(() => {
-         $event.style.background = "#fafafa";
-       }, 100); */
+        $event.style.background = "#fafafa";
+      }, 100); */
       // animation: heartBeat 0.2s;
-
-      if (item == "del"){
-        this.$emit("delTheAmount",item);
+      if (item == "del") {
+        this.$emit("delTheAmount", item);
         return;
       }
-      let obj ={
-        zero:0,
-        dot:"."
+      let obj = {
+        zero: 0,
+        dot: ".",
       };
-      if (typeof item != "number"){
-        item = obj[item]
+      if (typeof item != "number") {
+        item = obj[item];
       }
-      this.$emit("enterTheAmount",item);
+      this.$emit("enterTheAmount", item);
     },
-    goTouchstart(it,$event){
-    if (
-      $event.srcElement.localName == "img" ||
-      $event.srcElement.className == "dot"
-    ){
-      $event = $event.target.parentNode;
-    } else {
-      $event = $event.target;
-    }
-      $event.style.background = "rgba(197, 197, 197, 0.7)";
-    let _this = this;
-    clearTimeout(_this.timeOutEvent);
-    _this.timeOutEvent = setTimeout(function () {
 
-      _this.timeOutEvent = 0;
-      if (it == "del") {
-        clearInterval(_this.tiemIntervalEvent);
-        _this.delLong(it);
-        return;
+    goTouchstart(it, $event) {
+      if (
+        $event.srcElement.localName == "img" ||
+        $event.srcElement.className == "dot"
+      ) {
+        $event = $event.target.parentNode;
+      } else {
+        $event = $event.target;
       }
-
-    },600);
+      $event.style.background = "rgba(197, 197, 197, 0.7)";
+      let _this = this;
+      clearTimeout(_this.timeOutEvent);
+      _this.timeOutEvent = setTimeout(function () {
+        _this.timeOutEvent = 0;
+        if (it == "del") {
+          clearInterval(_this.tiemIntervalEvent);
+          _this.delLong(it);
+          return;
+        }
+        //  处理长按事件...
+      }, 600);
+    },
+    //手如果在600毫秒内就释放，则取消长按事件
+    goTouchend(it, $event) {
+      console.log("goTouchend");
+      if (
+        $event.srcElement.localName == "img" ||
+        $event.srcElement.className == "dot"
+      ) {
+        $event = $event.target.parentNode;
+      } else {
+        $event = $event.target;
+      }
+      $event.style.background = "#fafafa";
+      let _this = this;
+      clearTimeout(_this.timeOutEvent);
+      clearInterval(_this.tiemIntervalEvent);
+      if (_this.timeOutEvent !== 0) {
+        //  处理单击事件
+        this.onKeyboard(it, $event);
+      }
+    },
+    //  长按退格
+    delLong(item) {
+      // 定时触发
+      this.tiemIntervalEvent = setInterval(() => {
+        this.$emit("delTheAmount", item);
+      }, 200);
     },
   },
-  //手如果在600毫秒内就释放，则取消长按事件
-  goTouchend(it,$event){
-    console.log("goTouchend")
-  }
-}
+};
 </script>
 <style lang="css" scoped>
 @keyframes switchColor {
