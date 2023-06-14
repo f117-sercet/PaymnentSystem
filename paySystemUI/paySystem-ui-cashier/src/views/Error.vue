@@ -1,6 +1,10 @@
 
 <template>
-
+  <div class="center">
+    <img src="../assets/icon/error.svg" alt="">
+    <!--    <p>支付失败，请重新扫码进入！</p>-->
+    <p>错误: {{msg}}</p>
+  </div>
 </template>
 <script>
 // 分发器页面，  用户扫码后进入的第一个页面：

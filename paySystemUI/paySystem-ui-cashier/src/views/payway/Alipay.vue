@@ -44,7 +44,7 @@
 </template>
 <script>
 import { getPayPackage, getPayOrderInfo } from '/src/api/api'
-import config from "src/config";
+import config from "/src/config";
 export default {
 
   data: function () {
