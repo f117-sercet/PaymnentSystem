@@ -14,7 +14,6 @@ const setChannelUserId = function (channelUserId) {
 }
 
 export default {
-
   getChannelUserId:getChannelUserId,
   setChannelUserId:setChannelUserId
 }
