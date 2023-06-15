@@ -19,4 +19,20 @@ export function login({username,password,vercode,vercodeToken}) {
   //获取图形验证码信息接口
   export function vercode(){
 
+  return request.request({url:'/api/anon/auth/vercode', method:'get'},true,true,true)
+}
+// 获取当前用户信息
+
+export function getInfo(){
+
+  return request.request({
+
+    url:'/api/current/user',
+    method:'get'
+  })
+
+  // 退出接口
+  export function logout () {
+    return new Promise(resolve => { resolve() })
+  }
 }
