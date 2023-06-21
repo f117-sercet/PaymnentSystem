@@ -21,4 +21,13 @@ export const req = {
   add: (url, data) => {
     return request.request({ url: url, method: 'POST', data: data }, true, true, false)
   },
+  // 通用查询单条数据接口
+  getById:(url,bizId) =>{
+    return request.request({url:url+'/'+bizId,method:'get'},true,true,false)
+  },
+  // 通用修改接口
+  updateById: (url, bizId, data) => {
+    return request.request({ url: url + '/' + bizId, method: 'PUT', data: data }, true, true, false)
+  },
+
 }
