@@ -127,13 +127,14 @@ export function getEntTree (sysType) {
 
 /****退款接口****/
 
-export function payOrderRefund(payOrderId,refundAmount,refundReason){
+export function payOrderRefund(payOrderId,refundAmount,refundReason) {
 
   return request.request({
-    url:'/api/payOrder/refunds/'+payOrderId,
-    method:'POST',
-    data:{refundAmount,refundReason}
+    url: '/api/payOrder/refunds/' + payOrderId,
+    method: 'POST',
+    data: {refundAmount, refundReason}
   })
+}
 
   /***更新用户角色信息**/
   export function uSysUserRoleRela(sysUserId,roleIdList){
@@ -143,4 +144,162 @@ export function payOrderRefund(payOrderId,refundAmount,refundReason){
       data:{roleIdListStr:JSON.stringify(roleIdList)}
     })
   }
+
+  export function getRoleList(parameter){
+
+    return request({
+      url:'/api/sysRole',
+      method:'get',
+      params:parameter
+    })
+  }
+  export function getServiceList(parameter){
+    return request({
+      url:api.service,
+      method:'get',
+      params:parameter
+    })
+  }
+
+export function getPermissions (parameter) {
+  return request({
+    url: api.permissionNoPager,
+    method: 'get',
+    params: parameter
+  })
 }
+
+export function getOrgTree (parameter) {
+  return request({
+    url: api.orgTree,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function saveService (parameter) {
+  return request({
+    url: api.service,
+    method: parameter.id === 0 ? 'post' : 'put',
+    data: parameter
+  })
+}
+export function saveSub (sub) {
+  return request({
+    url: '/sub',
+    method: sub.id === 0 ? 'post' : 'put',
+    data: sub
+  })
+}
+
+export function getIsvPayConfigUnique (infoId, ifCode) {
+  return request.request({
+    url: '/api/isv/payConfigs/' + infoId + '/' + ifCode,
+    method: 'get'
+  })
+}
+
+export function getMchPayConfigUnique (infoId, ifCode) {
+  return request.request({
+    url: '/api/mch/payConfigs/' + infoId + '/' + ifCode,
+    method: 'get'
+  })
+}
+
+export function getAvailablePayInterfaceList (mchNo, wayCode) {
+  return request.request({
+    url: '/api/mch/payPassages/availablePayInterface/' + mchNo + '/' + wayCode,
+    method: 'GET'
+  })
+}
+
+export function getPayAmountWeek () {
+  return request.request({
+    url: API_URL_MAIN_STATISTIC + '/payAmountWeek',
+    method: 'GET'
+  })
+}
+export function getNumCount () {
+  return request.request({
+    url: API_URL_MAIN_STATISTIC + '/numCount',
+    method: 'GET'
+  })
+}
+
+export function getPayCount (parameter) {
+  return request.request({
+    url: API_URL_MAIN_STATISTIC + '/payCount',
+    method: 'GET',
+    params: parameter
+  })
+}
+
+export function getPayType (parameter) {
+  return request.request({
+    url: API_URL_MAIN_STATISTIC + '/payTypeCount',
+    method: 'GET',
+    params: parameter
+  })
+}
+
+export function getMainUserInfo (parameter) {
+  return request.request({
+    url: API_URL_MAIN_STATISTIC + '/' + parameter,
+    method: 'GET'
+  })
+}
+
+export function updateUserPass (parameter) {
+  return request.request({
+    url: '/api/current/modifyPwd',
+    method: 'put',
+    data: parameter
+  })
+}
+
+export function updateUserInfo (parameter) {
+  return request.request({
+    url: '/api/current/user',
+    method: 'put',
+    data: parameter
+  })
+}
+
+export function getUserInfo () {
+  return request.request({
+    url: '/api/current/user',
+    method: 'get'
+  })
+}
+
+export function getConfigs (parameter) {
+  return request.request({
+    url: API_URL_SYS_CONFIG + '/' + parameter,
+    method: 'GET'
+  })
+}
+
+export function getEntBySysType (entId, sysType) {
+  return request.request({
+    url: '/api/sysEnts/bySysType',
+    method: 'GET',
+    params: { entId: entId, sysType: sysType }
+  })
+}
+
+export function mchNotifyResend (notifyId) {
+  return request.request({
+    url: '/api/mchNotify/resend/' + notifyId,
+    method: 'POST'
+  })
+}
+
+/** 查询支付宝授权地址URL **/
+export function queryAlipayIsvsubMchAuthUrl (mchAppId) {
+  return request.request({
+    url: '/api/mch/payConfigs/alipayIsvsubMchAuthUrls/' + mchAppId,
+    method: 'GET'
+  })
+}
+
+

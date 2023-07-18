@@ -28,6 +28,7 @@
     "nprogress": "^0.2.0",
     "save": "^2.9.0",
     "store": "^2.0.12",
+    "viser-vue": "^2.4.8",
     "vue": "^2.7.14",
     "vue-clipboard2": "^0.3.3",
     "vue-cropper": "^0.6.2",

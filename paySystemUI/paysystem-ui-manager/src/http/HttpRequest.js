@@ -7,7 +7,7 @@
  * @date 2021/5/8 07:18
  */
 import axios from 'axios'
-import storage from 'src/utils/jeepayStorageWrapper'
+import storage from 'src/utils/storageWrapper'
 import appConfig from 'src/config/appConfig'
 import Vue from 'vue'
 import store from 'src/store/index'
