@@ -4,6 +4,7 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.pay.payment.config.SystemYmlConfig;
+import org.hibernate.validator.HibernateValidator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,8 +14,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Arrays;
 
 /**
@@ -25,8 +32,8 @@ import java.util.Arrays;
  */
 @SpringBootApplication
 @EnableScheduling
-@MapperScan("com.jeequan.jeepay.service.mapper")    //Mybatis mapper接口路径
-@ComponentScan(basePackages = "com.jeequan.jeepay.*")   //由于MainApplication没有在项目根目录， 需要配置basePackages属性使得成功扫描所有Spring组件；
+@MapperScan("com.pay.pay.service.mapper")    //Mybatis mapper接口路径
+@ComponentScan(basePackages = "com.pay.payment.*")   //由于MainApplication没有在项目根目录， 需要配置basePackages属性使得成功扫描所有Spring组件；
 @Configuration
 public class payApplication {
 
@@ -72,5 +79,32 @@ public class payApplication {
         // 设置最大单页限制数量，默认 500 条，-1 不受限制
         // paginationInterceptor.setLimit(500);
         return paginationInterceptor;
+    }
+
+    /** 默认为 失败快速返回模式 **/
+    @Bean
+    public Validator validator(){
+
+        ValidatorFactory validatorFactory = Validation.byProvider( HibernateValidator.class )
+                .configure()
+                .failFast( true )
+                .buildValidatorFactory();
+        return validatorFactory.getValidator();
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        if(systemYmlConfig.getAllowCors()){
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowCredentials(true);   //带上cookie信息
+//          config.addAllowedOrigin(CorsConfiguration.ALL);  //允许跨域的域名， *表示允许任何域名使用
+            config.addAllowedOriginPattern(CorsConfiguration.ALL);  //使用addAllowedOriginPattern 避免出现 When allowCredentials is true, allowedOrigins cannot contain the special value "*" since that cannot be set on the "Access-Control-Allow-Origin" response header. To allow credentials to a set of origins, list them explicitly or consider using "allowedOriginPatterns" instead.
+            config.addAllowedHeader(CorsConfiguration.ALL);   //允许任何请求头
+            config.addAllowedMethod(CorsConfiguration.ALL);   //允许任何方法（post、get等）
+            source.registerCorsConfiguration("/**", config); // CORS 配置对所有接口都有效
+        }
+        return new CorsFilter(source);
     }
 }
