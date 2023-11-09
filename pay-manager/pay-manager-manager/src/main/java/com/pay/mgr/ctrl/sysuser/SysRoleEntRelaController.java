@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pay.mgr.ctrl.common.CommonCtrl;
 import com.pay.pay.core.entity.SysRoleEntRela;
 import com.pay.pay.core.model.ApiRes;
-import com.pay.pay.service.impl.SysRoleEntRelaService;
+import com.pay.payMbg.service.impl.SysRoleEntRelaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;

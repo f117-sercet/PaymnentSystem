@@ -29,12 +29,12 @@ import com.pay.pay.core.model.params.alipay.AlipayNormalMchParams;
 import com.pay.pay.core.model.params.pppay.PpPayNormalMchParams;
 import com.pay.pay.core.model.params.wxpay.WxpayIsvParams;
 import com.pay.pay.core.model.params.wxpay.WxpayNormalMchParams;
-import com.pay.pay.service.impl.*;
+import com.pay.payMbg.service.impl.*;
 import com.pay.payment.model.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,10 +60,13 @@ public class ConfigContextService {
     /** <服务商号, 服务商配置上下文>  **/
     private static final Map<String, IsvConfigContext> isvConfigContextMap = new ConcurrentHashMap<>();
 
-    @Autowired private MchInfoService mchInfoService;
-    @Autowired private MchAppService mchAppService;
-    @Autowired private IsvInfoService isvInfoService;
-    @Autowired private PayInterfaceConfigService payInterfaceConfigService;
+    @Resource
+    private MchInfoService mchInfoService;
+    @Resource
+    private MchAppService mchAppService;
+    @Resource private IsvInfoService isvInfoService;
+    @Resource
+    private PayInterfaceConfigService payInterfaceConfigService;
 
 
     /** 获取 [商户配置信息] **/

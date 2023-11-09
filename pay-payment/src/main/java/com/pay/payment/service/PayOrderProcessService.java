@@ -5,7 +5,7 @@ import com.pay.components.mq.model.PayOrderDivisionMQ;
 import com.pay.components.mq.vender.IMQSender;
 import com.pay.pay.core.constants.CS;
 import com.pay.pay.core.entity.PayOrder;
-import com.pay.pay.service.impl.PayOrderService;
+import com.pay.payMbg.service.impl.PayOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

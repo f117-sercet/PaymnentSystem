@@ -7,7 +7,7 @@ import com.pay.pay.core.aop.MethodLog;
 import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.entity.SysLog;
 import com.pay.pay.core.model.ApiRes;
-import com.pay.pay.service.impl.SysLogService;
+import com.pay.payMbg.service.impl.SysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;

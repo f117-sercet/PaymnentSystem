@@ -6,7 +6,7 @@ import com.pay.pay.core.ctrls.AbstractCtrl;
 import com.pay.pay.core.entity.SysUser;
 import com.pay.pay.core.model.ApiRes;
 import com.pay.pay.core.model.security.JeeUserDetails;
-import com.pay.pay.service.impl.SysConfigService;
+import com.pay.payMbg.service.impl.SysConfigService;
 import com.payment.pay.mch.config.SystemYmlConfig;
 import org.springframework.security.core.context.SecurityContextHolder;
 

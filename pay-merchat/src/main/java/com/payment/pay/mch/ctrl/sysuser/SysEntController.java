@@ -6,7 +6,7 @@ import com.pay.pay.core.aop.MethodLog;
 import com.pay.pay.core.entity.SysEntitlement;
 import com.pay.pay.core.model.ApiRes;
 import com.pay.pay.core.utils.TreeDataBuilder;
-import com.pay.pay.service.impl.SysEntitlementService;
+import com.pay.payMbg.service.impl.SysEntitlementService;
 import com.payment.pay.mch.ctrl.CommonCtrl;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;

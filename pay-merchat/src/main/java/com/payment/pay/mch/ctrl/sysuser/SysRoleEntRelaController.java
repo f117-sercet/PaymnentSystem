@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pay.pay.core.entity.SysRoleEntRela;
 import com.pay.pay.core.model.ApiRes;
-import com.pay.pay.service.impl.SysRoleEntRelaService;
+import com.pay.payMbg.service.impl.SysRoleEntRelaService;
 import com.payment.pay.mch.ctrl.CommonCtrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

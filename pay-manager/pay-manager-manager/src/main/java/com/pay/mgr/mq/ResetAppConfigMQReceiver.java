@@ -1,7 +1,7 @@
 package com.pay.mgr.mq;
 
 import com.pay.components.mq.model.ResetAppConfigMQ;
-import com.pay.pay.service.impl.SysConfigService;
+import com.pay.payMbg.service.impl.SysConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

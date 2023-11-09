@@ -3,7 +3,6 @@ package com.pay.payment.service;
 import com.pay.pay.core.entity.PayOrder;
 import com.pay.pay.core.entity.RefundOrder;
 import com.pay.pay.core.utils.SpringBeansUtil;
-import com.pay.pay.service.impl.PayOrderService;
 import com.pay.payment.channel.IPayOrderQueryService;
 import com.pay.payment.channel.IRefundService;
 import com.pay.payment.model.MchAppConfigContext;
@@ -23,7 +22,8 @@ import org.springframework.stereotype.Service;
 public class ChannelOrderReissueService {
 
     @Autowired private ConfigContextQueryService configContextQueryService;
-    @Autowired private PayOrderService payOrderService;
+    //@Resource
+    //private PayOrderService payOrderService;
     @Autowired private PayOrderProcessService payOrderProcessService;
     @Autowired private RefundOrderProcessService refundOrderProcessService;
 
@@ -57,7 +57,7 @@ public class ChannelOrderReissueService {
 
             // 查询成功
             if(channelRetMsg.getChannelState() == ChannelRetMsg.ChannelState.CONFIRM_SUCCESS) {
-                if (payOrderService.updateIng2Success(payOrderId, channelRetMsg.getChannelOrderId(), channelRetMsg.getChannelUserId())) {
+               /* if (payOrderService.updateIng2Success(payOrderId, channelRetMsg.getChannelOrderId(), channelRetMsg.getChannelUserId())) {
 
                     //订单支付成功，其他业务逻辑
                     payOrderProcessService.confirmSuccess(payOrder);
@@ -65,7 +65,7 @@ public class ChannelOrderReissueService {
             }else if(channelRetMsg.getChannelState() == ChannelRetMsg.ChannelState.CONFIRM_FAIL){  //确认失败
 
                 //1. 更新支付订单表为失败状态
-                payOrderService.updateIng2Fail(payOrderId, channelRetMsg.getChannelOrderId(), channelRetMsg.getChannelUserId(), channelRetMsg.getChannelErrCode(), channelRetMsg.getChannelErrMsg());
+                payOrderService.updateIng2Fail(payOrderId, channelRetMsg.getChannelOrderId(), channelRetMsg.getChannelUserId(), channelRetMsg.getChannelErrCode(), channelRetMsg.getChannelErrMsg());*/
 
             }
 

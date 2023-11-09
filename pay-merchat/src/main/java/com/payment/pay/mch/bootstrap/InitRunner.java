@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
-import com.pay.pay.service.impl.SysConfigService;
+import com.pay.payMbg.service.impl.SysConfigService;
 import com.payment.pay.mch.config.SystemYmlConfig;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

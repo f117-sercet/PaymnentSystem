@@ -9,7 +9,7 @@ import com.pay.pay.core.aop.MethodLog;
 import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.entity.IsvInfo;
 import com.pay.pay.core.model.ApiRes;
-import com.pay.pay.service.impl.IsvInfoService;
+import com.pay.payMbg.service.impl.IsvInfoService;
 import com.payment.pay.mch.ctrl.CommonCtrl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;

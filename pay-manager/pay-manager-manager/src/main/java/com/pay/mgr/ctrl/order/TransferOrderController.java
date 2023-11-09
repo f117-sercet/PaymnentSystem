@@ -7,7 +7,7 @@ import com.pay.mgr.ctrl.common.CommonCtrl;
 import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.entity.TransferOrder;
 import com.pay.pay.core.model.ApiRes;
-import com.pay.pay.service.impl.TransferOrderService;
+import com.pay.payMbg.service.impl.TransferOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;

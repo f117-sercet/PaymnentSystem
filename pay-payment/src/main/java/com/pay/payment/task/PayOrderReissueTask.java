@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pay.pay.core.entity.PayOrder;
-import com.pay.pay.service.impl.PayOrderService;
+import com.pay.payMbg.service.impl.PayOrderService;
 import com.pay.payment.service.ChannelOrderReissueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

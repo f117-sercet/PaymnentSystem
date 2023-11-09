@@ -11,7 +11,7 @@ import com.pay.pay.core.entity.PayInterfaceDefine;
 import com.pay.pay.core.model.ApiRes;
 import com.pay.pay.core.model.params.IsvParams;
 import com.pay.pay.core.utils.StringKit;
-import com.pay.pay.service.impl.PayInterfaceConfigService;
+import com.pay.payMbg.service.impl.PayInterfaceConfigService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

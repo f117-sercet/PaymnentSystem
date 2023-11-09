@@ -7,7 +7,7 @@ import com.pay.pay.core.constants.CS;
 import com.pay.pay.core.entity.SysLog;
 import com.pay.pay.core.exeception.BizException;
 import com.pay.pay.core.model.security.JeeUserDetails;
-import com.pay.pay.service.impl.SysLogService;
+import com.pay.payMbg.service.impl.SysLogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;

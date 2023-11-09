@@ -10,7 +10,7 @@ import com.pay.pay.core.constants.ApiCodeEnum;
 import com.pay.pay.core.entity.MchNotifyRecord;
 import com.pay.pay.core.exeception.BizException;
 import com.pay.pay.core.model.ApiRes;
-import com.pay.pay.service.impl.MchNotifyRecordService;
+import com.pay.payMbg.service.impl.MchNotifyRecordService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -9,7 +9,7 @@ import com.pay.pay.core.entity.RefundOrder;
 import com.pay.pay.core.entity.TransferOrder;
 import com.pay.pay.core.utils.JeepayKit;
 import com.pay.pay.core.utils.StringKit;
-import com.pay.pay.service.impl.MchNotifyRecordService;
+import com.pay.payMbg.service.impl.MchNotifyRecordService;
 import com.pay.payment.rqrs.payorder.QueryPayOrderRS;
 import com.pay.payment.rqrs.refund.QueryRefundOrderRS;
 import com.pay.payment.rqrs.transfer.QueryTransferOrderRS;
