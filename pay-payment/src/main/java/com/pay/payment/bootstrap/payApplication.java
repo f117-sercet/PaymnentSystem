@@ -3,22 +3,14 @@ package com.pay.payment.bootstrap;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.pay.payment.config.SystemYmlConfig;
 import org.hibernate.validator.HibernateValidator;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
-import javax.annotation.Resource;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -32,13 +24,13 @@ import java.util.Arrays;
  */
 @SpringBootApplication
 @EnableScheduling
-@MapperScan("com.pay.payMbg.service.mapper")    //Mybatis mapper接口路径
-@ComponentScan(basePackages = "com.pay.payment.*")   //由于MainApplication没有在项目根目录， 需要配置basePackages属性使得成功扫描所有Spring组件；
-@Configuration
+//@MapperScan("com.pay.payMbg.service.mapper")    //Mybatis mapper接口路径
+//由于MainApplication没有在项目根目录， 需要配置basePackages属性使得成功扫描所有Spring组件；
+//@Configuration
 public class payApplication {
 
-    @Resource
-    private SystemYmlConfig systemYmlConfig;
+  /*  @Resource
+    private SystemYmlConfig systemYmlConfig;*/
 
     /**main函数***/
     public static void main(String[] args) {
@@ -92,7 +84,7 @@ public class payApplication {
         return validatorFactory.getValidator();
     }
 
-    @Bean
+   /* @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
@@ -106,5 +98,5 @@ public class payApplication {
             source.registerCorsConfiguration("/**", config); // CORS 配置对所有接口都有效
         }
         return new CorsFilter(source);
-    }
+    }*/
 }
