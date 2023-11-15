@@ -2,6 +2,7 @@ package com.pay.payment.channel;
 
 import com.alibaba.fastjson.JSONObject;
 import com.pay.pay.core.beans.RequestKitBean;
+import com.pay.payment.utils.ChannelCertConfigKitBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
