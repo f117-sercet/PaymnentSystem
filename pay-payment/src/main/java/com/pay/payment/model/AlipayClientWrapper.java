@@ -1,11 +1,12 @@
 package com.pay.payment.model;
 
-import com.alipay.api.AlipayApiException;
-import com.alipay.api.AlipayClient;
-import com.alipay.api.AlipayRequest;
-import com.alipay.api.AlipayResponse;
+import com.alipay.api.*;
 import com.pay.pay.core.constants.CS;
+import com.pay.pay.core.model.params.alipay.AlipayIsvParams;
+import com.pay.pay.core.model.params.alipay.AlipayNormalMchParams;
+import com.pay.pay.core.utils.SpringBeansUtil;
 import com.pay.payment.exception.ChannelException;
+import com.pay.payment.utils.ChannelCertConfigKitBean;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -50,4 +51,61 @@ public class AlipayClientWrapper {
             throw ChannelException.sysError("调用支付宝client服务异常");
         }
     }
-}
+
+    public static AlipayClientWrapper buildAlipayClientWrapper(Byte useCert,
+                                                               Byte sandbox,
+                                                               String appId, String privateKey,
+                                                               String alipayPublicKey, String signType,
+                                                               String appCert,
+                                                               String alipayPublicCert, String alipayRootCert){
+
+        //避免空值
+        sandbox = sandbox == null ? CS.NO : sandbox;
+
+        AlipayClient alipayClient = null;
+
+        if (useCert!=null&& useCert == CS.YES) {  // 证书的方式
+
+            ChannelCertConfigKitBean channelCertConfigKitBean = SpringBeansUtil.getBean(ChannelCertConfigKitBean.class);
+            CertAlipayRequest certAlipayRequest = new CertAlipayRequest();
+            certAlipayRequest.setServerUrl(sandbox == CS.YES ? com.pay.pay.core.model.params.alipay.AlipayConfig.SANDBOX_SERVER_URL : com.pay.pay.core.model.params.alipay.AlipayConfig.PROD_SERVER_URL);
+            certAlipayRequest.setAppId(appId);
+            certAlipayRequest.setPrivateKey(privateKey);
+            certAlipayRequest.setFormat(com.pay.pay.core.model.params.alipay.AlipayConfig.FORMAT);
+            certAlipayRequest.setCharset(com.pay.pay.core.model.params.alipay.AlipayConfig.CHARSET);
+            certAlipayRequest.setSignType(signType);
+
+            certAlipayRequest.setCertPath(channelCertConfigKitBean.getCertFilePath(appCert));
+            certAlipayRequest.setAlipayPublicCertPath(channelCertConfigKitBean.getCertFilePath(alipayPublicCert));
+            certAlipayRequest.setRootCertPath(channelCertConfigKitBean.getCertFilePath(alipayRootCert));
+
+            try {
+                alipayClient = new DefaultAlipayClient(certAlipayRequest);
+            } catch (AlipayApiException e) {
+                log.error("error" ,e);
+                alipayClient = null;
+            }
+        }else{
+            alipayClient = new DefaultAlipayClient(sandbox == CS.YES ? com.pay.pay.core.model.params.alipay.AlipayConfig.SANDBOX_SERVER_URL : com.pay.pay.core.model.params.alipay.AlipayConfig.PROD_SERVER_URL
+                    , appId, privateKey, com.pay.pay.core.model.params.alipay.AlipayConfig.FORMAT,com.pay.pay.core.model.params.alipay.AlipayConfig.CHARSET,
+                    alipayPublicKey, signType);
+        }
+
+        return new AlipayClientWrapper(useCert, alipayClient);
+    }
+    public static AlipayClientWrapper buildAlipayClientWrapper(AlipayIsvParams alipayParams){
+
+        return buildAlipayClientWrapper(
+                alipayParams.getUseCert(), alipayParams.getSandbox(), alipayParams.getAppId(), alipayParams.getPrivateKey(),
+                alipayParams.getAlipayPublicKey(), alipayParams.getSignType(), alipayParams.getAppPublicCert(),
+                alipayParams.getAlipayPublicCert(), alipayParams.getAlipayRootCert()
+        );
+    }
+    public static AlipayClientWrapper buildAlipayClientWrapper(AlipayNormalMchParams alipayParams){
+
+        return buildAlipayClientWrapper(
+                alipayParams.getUseCert(), alipayParams.getSandbox(), alipayParams.getAppId(), alipayParams.getPrivateKey(),
+                alipayParams.getAlipayPublicKey(), alipayParams.getSignType(), alipayParams.getAppPublicCert(),
+                alipayParams.getAlipayPublicCert(), alipayParams.getAlipayRootCert()
+        );
+    }
